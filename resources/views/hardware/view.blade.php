@@ -61,6 +61,12 @@
                         </a>
                     </li>
                 @endcan
+
+                <li role="menuitem">
+                    <a href="javascript:window.print()">
+                        Print
+                    </a>
+                </li>
             </ul>
         </div>
         @endif
@@ -794,7 +800,7 @@
 
                             </div><!-- /col-md-8 -->
 
-                            <div class="col-md-4">
+                            <div class="col-md-4 no-print">
 
                                 @if (($asset->image) || (($asset->model) && ($asset->model->image!='')))
 
