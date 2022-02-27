@@ -776,7 +776,7 @@
                                             {{ ($asset->userRequests) ? (int) $asset->userRequests->count() : '0' }}
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row no-print">
                                         <div class="col-md-2">
                                             <strong>
                                                Labels
