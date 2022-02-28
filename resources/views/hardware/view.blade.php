@@ -63,8 +63,8 @@
                 @endcan
 
                 <li role="menuitem">
-                    <a href="javascript:window.print()">
-                        Print
+                    <a href="{{ route('hardware.view', ['assetId' => $asset->id, 'receipt-confirmation' => '']) }}" target="_blank">
+                        Print receipt confirmation
                     </a>
                 </li>
             </ul>
