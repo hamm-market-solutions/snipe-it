@@ -36,19 +36,6 @@
     @endif
     {{-- page level css --}}
     @stack('css')
-    <style>
-        @media print {
-            #maintenance-toolbar,
-            #maintenances,
-            #history,
-            .nav-tabs,
-            .alert,
-            .fixed-table-toolbar,
-            .search.input-group {
-                display: none!important;
-            }
-        }
-    </style>
 
 
     @if (($snipeSettings) && ($snipeSettings->header_color!=''))
