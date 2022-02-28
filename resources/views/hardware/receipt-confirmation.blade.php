@@ -130,7 +130,7 @@
 <br>
 <footer>
     <div>Hamm Market Solutions GmbH & Co. KG</div>
-    <div>[Aktuelle Monat] {{ time() }}</div>
+    <div>{{ date('Y-m-t') }}</div>
     <div>Seite 1 von 1</div>
 </footer>
 @stop
