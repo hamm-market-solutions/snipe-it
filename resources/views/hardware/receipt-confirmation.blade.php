@@ -66,9 +66,9 @@
     }
 </style>
 <header>
-    <span class="hamm-logo">hamm</span>
+    <span class="hamm-logo" style="color: saddlebrown !important;">hamm</span>
     <br>
-    <span style="font-size: x-small;">market solution for branded footwear</span>
+    <span style="font-size: x-small; color: saddlebrown !important;">market solution for branded footwear</span>
 </header>
 <br>
 <div style="margin: 100px 0;">
@@ -79,19 +79,19 @@
     <table>
         <tr>
             <td>Bezeichnung / Gerät / Typ:</td>
-            <td>@if ($asset->name) {{ $asset->name }} @endif</td>
+            <td>@if ($asset->name) {{ $asset->name }} @else <input placeholder="Hier wert eingeben oder Leertaste drucken"></input> @endif</td>
         </tr>
         <tr>
             <td>Seriennummer:</td>
-            <td>@if ($asset->serial) {{ $asset->serial }} @endif</td>
+            <td>@if ($asset->serial) {{ $asset->serial }} @else <input placeholder="Hier wert eingeben oder Leertaste drucken"></input> @endif</td>
         </tr>
         <tr>
             <td>IMEI:</td>
-            <td>{{ $asset->_snipeit_imei_1_4 }}</td>
+            <td>@if($asset->_snipeit_imei_1_4) {{ $asset->_snipeit_imei_1_4 }} @else <input placeholder="Hier wert eingeben oder Leertaste drucken"></input> @endif</td>
         </tr>
         <tr>
             <td>Inventar Nr.</td>
-            <td>{{ $asset->id }}</td>
+            <td>@if ($asset->id) {{ $asset->id }} @else <input placeholder="Hier wert eingeben oder Leertaste drucken"></input> @endif</td>
         </tr>
     </table>
     <br>
@@ -100,20 +100,20 @@
     <table>
         <tr>
             <td>Zubehör:</td>
-            <td><input placeholder="Zubehör hier eingeben oder Leertaste"></td>
+            <td><input placeholder="Zubehör hier eingeben oder Leertaste drucken"></td>
         </tr>
         <tr>
             <td>Zubehör:</td>
-            <td><input placeholder="Zubehör hier eingeben oder Leertaste"></td>
+            <td><input placeholder="Zubehör hier eingeben oder Leertaste drucken"></td>
         </tr>
         <tr>
             <td>Zubehör:</td>
-            <td><input placeholder="Zubehör hier eingeben oder Leertaste"></td>
+            <td><input placeholder="Zubehör hier eingeben oder Leertaste drucken"></td>
         </tr>
     </table>
 </div>
 <div class="w-50">
-    Osnabrück, den
+    Osnabrück, den {{ date('t.m.Y') }}
     <hr>
     Ort, Datum
 </div>
@@ -130,7 +130,10 @@
 <br>
 <footer>
     <div>Hamm Market Solutions GmbH & Co. KG</div>
-    <div>{{ date('Y-m-t') }}</div>
+    <div>
+        @php setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge'); @endphp
+        {{utf8_encode(strftime("%B %G", strtotime("now")))}}
+    </div>
     <div>Seite 1 von 1</div>
 </footer>
 @stop
