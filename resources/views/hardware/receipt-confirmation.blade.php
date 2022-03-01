@@ -135,7 +135,7 @@
     <div style="color: grey !important;">Hamm Market Solutions GmbH & Co. KG</div>
     <div style="color: grey !important;">
         @php setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge'); @endphp
-        {{utf8_encode(strftime("%B %G", strtotime("now")))}}
+        {{strftime("%B %G", strtotime("now"))}}
     </div>
     <div style="color: grey !important;">Seite 1 von 1</div>
 </footer>
