@@ -7,10 +7,6 @@
     <link rel="stylesheet" href="{{ url(mix('css/dist/all.css')) }}">
   </head>
 <body>
-
-@section('title')
-@show
-
     @yield('content')
 </body>
 </html>
