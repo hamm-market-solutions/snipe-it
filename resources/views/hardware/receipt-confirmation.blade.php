@@ -73,6 +73,9 @@
 <br>
 <div style="margin: 100px 0;">
     <h3>Bestätigung des Erhalts für Endgeräte</h3>
+    <br>
+    <br>
+    <br>
     <h4>Anlage @if (($asset->assignedTo) && ($asset->deleted_at=='')) {!!  $asset->assignedTo->present()->nameUrl() !!} @endif @if ($asset->model) {{ $asset->model->name }} @endif</h4>
     <p>Hiermit bestätige ich, folgendes Endgerät und weiteres Zubehör erhalten zu haben:</p>
     <!--Oberen Bereich-->
@@ -82,16 +85,8 @@
             <td>@if ($asset->name) {{ $asset->name }} @else <input placeholder="Hier wert eingeben oder Leertaste drucken"></input> @endif</td>
         </tr>
         <tr>
-            <td>Seriennummer:</td>
-            <td>@if ($asset->serial) {{ $asset->serial }} @else <input placeholder="Hier wert eingeben oder Leertaste drucken"></input> @endif</td>
-        </tr>
-        <tr>
-            <td>IMEI:</td>
-            <td>@if($asset->_snipeit_imei_1_4) {{ $asset->_snipeit_imei_1_4 }} @else <input placeholder="Hier wert eingeben oder Leertaste drucken"></input> @endif</td>
-        </tr>
-        <tr>
             <td>Inventar Nr.</td>
-            <td>@if ($asset->id) {{ $asset->id }} @else <input placeholder="Hier wert eingeben oder Leertaste drucken"></input> @endif</td>
+            <td>@if ($asset->asset_tag) {{ $asset->asset_tag }} @else <input placeholder="Hier wert eingeben oder Leertaste drucken"></input> @endif</td>
         </tr>
     </table>
     <br>
@@ -103,17 +98,20 @@
             <td><input placeholder="Zubehör hier eingeben oder Leertaste drucken"></td>
         </tr>
         <tr>
-            <td>Zubehör:</td>
+            <td><input placeholder="Zubehör II:"></td>
             <td><input placeholder="Zubehör hier eingeben oder Leertaste drucken"></td>
         </tr>
         <tr>
-            <td>Zubehör:</td>
+            <td><input placeholder="Zubehör III:"></td>
             <td><input placeholder="Zubehör hier eingeben oder Leertaste drucken"></td>
         </tr>
     </table>
 </div>
 <div class="w-50">
-    Osnabrück, den {{ date('t.m.Y') }}
+    Osnabrück, den
+    @php $today = Carbon\Carbon::now();
+    echo Carbon\Carbon::parse($today)->format('d.m.Y');
+    @endphp
     <hr>
     Ort, Datum
 </div>
@@ -129,11 +127,11 @@
 </div>
 <br>
 <footer>
-    <div>Hamm Market Solutions GmbH & Co. KG</div>
-    <div>
+    <div style="color: grey !important;">Hamm Market Solutions GmbH & Co. KG</div>
+    <div style="color: grey !important;">
         @php setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge'); @endphp
-        {{utf8_encode(strftime("%B %G", strtotime("now")))}}
+        {{strftime("%B %G", strtotime("now"))}}
     </div>
-    <div>Seite 1 von 1</div>
+    <div style="color: grey !important;">Seite 1 von 1</div>
 </footer>
 @stop
