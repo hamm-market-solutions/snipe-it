@@ -85,16 +85,8 @@
             <td>@if ($asset->name) {{ $asset->name }} @else <input placeholder="Hier wert eingeben oder Leertaste drucken"></input> @endif</td>
         </tr>
         <tr>
-            <td>Seriennummer:</td>
-            <td>@if ($asset->serial) {{ $asset->serial }} @else <input placeholder="Hier wert eingeben oder Leertaste drucken"></input> @endif</td>
-        </tr>
-        <tr>
-            <td>IMEI:</td>
-            <td>@if($asset->_snipeit_imei_1_4) {{ $asset->_snipeit_imei_1_4 }} @else <input placeholder="Hier wert eingeben oder Leertaste drucken"></input> @endif</td>
-        </tr>
-        <tr>
             <td>Inventar Nr.</td>
-            <td>@if ($asset->id) {{ $asset->id }} @else <input placeholder="Hier wert eingeben oder Leertaste drucken"></input> @endif</td>
+            <td>@if ($asset->asset_tag) {{ $asset->asset_tag }} @else <input placeholder="Hier wert eingeben oder Leertaste drucken"></input> @endif</td>
         </tr>
     </table>
     <br>
@@ -106,17 +98,20 @@
             <td><input placeholder="Zubehör hier eingeben oder Leertaste drucken"></td>
         </tr>
         <tr>
-            <td>Zubehör:</td>
+            <td><input placeholder="Zubehör II:"></td>
             <td><input placeholder="Zubehör hier eingeben oder Leertaste drucken"></td>
         </tr>
         <tr>
-            <td>Zubehör:</td>
+            <td><input placeholder="Zubehör III:"></td>
             <td><input placeholder="Zubehör hier eingeben oder Leertaste drucken"></td>
         </tr>
     </table>
 </div>
 <div class="w-50">
-    Osnabrück, den {{ date('t.m.Y') }}
+    Osnabrück, den
+    @php $today = Carbon\Carbon::now();
+    echo Carbon\Carbon::parse($today)->format('d.m.Y');
+    @endphp
     <hr>
     Ort, Datum
 </div>
