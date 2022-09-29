@@ -117,8 +117,6 @@
 </div>
 <div class="space-between">
     <div>
-        <hr>
-        Hamm Market Solutions GmbH & Co. KG
     </div>
     <div>
         <hr>
@@ -127,7 +125,7 @@
 </div>
 <br>
 <footer>
-    <div style="color: grey !important;">Hamm Market Solutions GmbH & Co. KG</div>
+    <div style="color: grey !important;">Hamm Footwear GmbH</div>
     <div style="color: grey !important;">
         @php setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge'); @endphp
         {{strftime("%B %G", strtotime("now"))}}
