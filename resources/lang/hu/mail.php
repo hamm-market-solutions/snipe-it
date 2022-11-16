@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'acceptance_asset_accepted' => 'A felhasználó elfogadott egy tételt',
+    'acceptance_asset_declined' => 'A felhasználó visszautasított egy tételt',
     'a_user_canceled' => 'A felhasználó törölte az elemkérést a webhelyen',
     'a_user_requested' => 'A felhasználó egy elemet kért a webhelyen',
     'accessory_name' => 'Tartozéknév:',
@@ -59,7 +61,7 @@ return [
     'test_mail_text' => 'Ez a Snipe-IT Asset Management System tesztje. Ha ez megvan, a levél működik :)',
     'the_following_item' => 'A következő tételt ellenőrzik:',
     'low_inventory_alert' => ':count darab tétel érhető el, ami kevesebb mint a minimum készlet vagy hamarosan kevesebb lesz.',
-    'assets_warrantee_alert' => 'There is :count asset with a warranty expiring in the next :threshold days.|There are :count assets with warranties expiring in the next :threshold days.',
+    'assets_warrantee_alert' => ':count darab eszköznél a jótállás :threshold napon belül lejár.|:count darab eszköznél a jótállások :threshold napon belül lejárnak.',
     'license_expiring_alert' => ':count licensz lejár :thershold nap múlva.|:count licensz lejár :thershold nap múlva.',
     'to_reset' => 'A webes jelszó visszaállításához töltsd ki ezt az űrlapot:',
     'type' => 'típus',

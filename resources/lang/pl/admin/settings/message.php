@@ -23,19 +23,19 @@ return [
         'sending' => 'Wysyłanie testowej wiadomości e-mail...',
         'success' => 'Wiadomość wysłana!',
         'error' => 'Wiadomość nie może zostać wysłana.',
-        'additional' => 'No additional error message provided. Check your mail settings and your app log.'
+        'additional' => 'Nie podano dodatkowego komunikatu o błędzie. Sprawdź ustawienia poczty i logu aplikacji.'
     ],
     'ldap' => [
-        'testing' => 'Testing LDAP Connection, Binding & Query ...',
+        'testing' => 'Testowanie połączenia LDAP, powiązania i zapytania ...',
         '500' => 'Błąd serwera 500. Sprawdź logi serwera, aby uzyskać więcej informacji.',
         'error' => 'Coś poszło nie tak :(',
         'sync_success' => 'Przykładowe 10 użytkowników zwrócona z serwera LDAP na podstawie Twoich ustawień:',
         'testing_authentication' => 'Testowanie uwierzytelniania LDAP...',
-        'authentication_success' => 'User authenticated against LDAP successfully!'
+        'authentication_success' => 'Użytkownik uwierzytelniony z LDAP pomyślnie!'
     ],
     'slack' => [
-        'sending' => 'Sending Slack test message...',
-        'success_pt1' => 'Success! Check the ',
+        'sending' => 'Wysyłanie wiadomości testowej Slack...',
+        'success_pt1' => 'Sukces! Sprawdź ',
         'success_pt2' => ' channel for your test message, and be sure to click SAVE below to store your settings.',
         '500' => 'Błąd 500 serwera.',
         'error' => 'Coś poszło nie tak.',

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Api;
 
 use App\Helpers\Helper;
@@ -43,7 +44,7 @@ class AssetModelsController extends Controller
                 'manufacturer',
                 'requestable',
                 'assets_count',
-                'category'
+                'category',
             ];
 
         $assetmodels = AssetModel::select([
@@ -62,13 +63,15 @@ class AssetModelsController extends Controller
             'models.deleted_at',
             'models.updated_at',
          ])
-            ->with('category','depreciation', 'manufacturer','fieldset')
+            ->with('category', 'depreciation', 'manufacturer', 'fieldset')
             ->withCount('assets as assets_count');
-
-
 
         if ($request->input('status')=='deleted') {
             $assetmodels->onlyTrashed();
+        }
+
+        if ($request->filled('category_id')) {
+            $assetmodels = $assetmodels->where('models.category_id', '=', $request->input('category_id'));
         }
 
         if ($request->filled('search')) {
@@ -99,6 +102,7 @@ class AssetModelsController extends Controller
 
         $total = $assetmodels->count();
         $assetmodels = $assetmodels->skip($offset)->take($limit)->get();
+
         return (new AssetModelsTransformer)->transformAssetModels($assetmodels, $total);
     }
 
@@ -123,6 +127,7 @@ class AssetModelsController extends Controller
         }
         return response()->json(Helper::formatStandardApiResponse('error', null, $assetmodel->getErrors()));
 
+
     }
 
     /**
@@ -137,6 +142,7 @@ class AssetModelsController extends Controller
     {
         $this->authorize('view', AssetModel::class);
         $assetmodel = AssetModel::withCount('assets as assets_count')->findOrFail($id);
+
         return (new AssetModelsTransformer)->transformAssetModel($assetmodel);
     }
 
@@ -151,7 +157,8 @@ class AssetModelsController extends Controller
     public function assets($id)
     {
         $this->authorize('view', AssetModel::class);
-        $assets = Asset::where('model_id','=',$id)->get();
+        $assets = Asset::where('model_id', '=', $id)->get();
+
         return (new AssetsTransformer)->transformAssets($assets, $assets->count());
     }
 
@@ -181,7 +188,7 @@ class AssetModelsController extends Controller
          * it, but I'll be damned if I can think of one. - snipe
          */
         if ($request->filled('custom_fieldset_id')) {
-            $assetmodel->fieldset_id = $request->get("custom_fieldset_id");
+            $assetmodel->fieldset_id = $request->get('custom_fieldset_id');
         }
 
 
@@ -207,11 +214,11 @@ class AssetModelsController extends Controller
         $this->authorize('delete', $assetmodel);
 
         if ($assetmodel->assets()->count() > 0) {
-            return response()->json(Helper::formatStandardApiResponse('error', null,  trans('admin/models/message.assoc_users')));
+            return response()->json(Helper::formatStandardApiResponse('error', null, trans('admin/models/message.assoc_users')));
         }
 
         if ($assetmodel->image) {
-            try  {
+            try {
                 Storage::disk('public')->delete('assetmodels/'.$assetmodel->image);
             } catch (\Exception $e) {
                 \Log::info($e);
@@ -219,8 +226,8 @@ class AssetModelsController extends Controller
         }
 
         $assetmodel->delete();
-        return response()->json(Helper::formatStandardApiResponse('success', null,  trans('admin/models/message.delete.success')));
 
+        return response()->json(Helper::formatStandardApiResponse('success', null, trans('admin/models/message.delete.success')));
     }
 
     /**
@@ -229,7 +236,6 @@ class AssetModelsController extends Controller
      * @author [A. Gianotto] [<snipe@snipe.net>]
      * @since [v4.0.16]
      * @see \App\Http\Transformers\SelectlistTransformer
-     *
      */
     public function selectlist(Request $request)
     {
@@ -242,7 +248,7 @@ class AssetModelsController extends Controller
             'models.model_number',
             'models.manufacturer_id',
             'models.category_id',
-        ])->with('manufacturer','category');
+        ])->with('manufacturer', 'category');
 
         $settings = \App\Models\Setting::getSettings();
 
@@ -253,7 +259,6 @@ class AssetModelsController extends Controller
         $assetmodels = $assetmodels->OrderCategory('ASC')->OrderManufacturer('ASC')->orderby('models.name', 'asc')->orderby('models.model_number', 'asc')->paginate(50);
 
         foreach ($assetmodels as $assetmodel) {
-
             $assetmodel->use_text = '';
 
             if ($settings->modellistCheckedValue('category')) {
@@ -264,10 +269,10 @@ class AssetModelsController extends Controller
                 $assetmodel->use_text .= (($assetmodel->manufacturer) ? $assetmodel->manufacturer->name.' ' : '');
             }
 
-            $assetmodel->use_text .=  $assetmodel->name;
+            $assetmodel->use_text .= $assetmodel->name;
 
-            if (($settings->modellistCheckedValue('model_number')) && ($assetmodel->model_number!='')) {
-                $assetmodel->use_text .=  ' (#'.$assetmodel->model_number.')';
+            if (($settings->modellistCheckedValue('model_number')) && ($assetmodel->model_number != '')) {
+                $assetmodel->use_text .= ' (#'.$assetmodel->model_number.')';
             }
 
             $assetmodel->use_image = ($settings->modellistCheckedValue('image') && ($assetmodel->image)) ? Storage::disk('public')->url('models/'.e($assetmodel->image)) : null;
@@ -275,5 +280,4 @@ class AssetModelsController extends Controller
 
         return (new SelectlistTransformer)->transformSelectlist($assetmodels);
     }
-
 }

@@ -64,7 +64,7 @@ return [
         'string'  => ':attribute debe contener como mínimo :min caracteres.',
         'array'   => 'El atributo: debe tener al menos: elementos min.',
     ],
-    'starts_with'          => 'The :attribute must start with one of the following: :values.',
+    'starts_with'          => 'El :attribute debe comenzar con uno de los siguientes: :values.',
     'not_in'               => 'El :attribute seleccionado no es correcto.',
     'numeric'              => ':attribute debe ser un número.',
     'present'              => 'El campo: atributo debe estar presente.',
@@ -91,6 +91,15 @@ return [
     'url'                  => ':attribute formato incorrecto.',
     'unique_undeleted'     => 'El :atrribute debe ser único.',
     'non_circular'         => ':attribute no debe crear una referencia circular.',
+    'disallow_same_pwd_as_user_fields' => 'La contraseña no puede ser la misma que el usuario.',
+    'letters'              => 'La contraseña debe contener al menos una letra.',
+    'numbers'              => 'La contraseña debe contener al menos un número.',
+    'case_diff'            => 'La contraseña debe usar mayúsculas y minúsculas.',
+    'symbols'              => 'La contraseña debe contener símbolos.',
+    'gte'                  => [
+        'numeric'          => 'El valor no puede ser negativo'
+    ],
+
 
     /*
     |--------------------------------------------------------------------------

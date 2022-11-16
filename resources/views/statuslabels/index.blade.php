@@ -3,7 +3,6 @@
     'helpPosition' => 'right',
 ])
 
-
 {{-- Page title --}}
 @section('title')
 {{ trans('admin/statuslabels/table.title') }}
@@ -34,6 +33,7 @@
                     data-side-pagination="server"
                     data-show-columns="true"
                     data-show-export="true"
+                    data-show-fullscreen="true"
                     data-show-refresh="true"
                     data-sort-order="asc"
                     data-sort-name="name"
@@ -68,24 +68,24 @@
 
       <div class="box box-success">
           <div class="box-body">
-          <p><i class="fa fa-circle text-green"></i> <strong>{{ trans('admin/statuslabels/table.deployable') }}</strong>: {!!  trans('admin/statuslabels/message.help.deployable')  !!}</p>
+          <p><i class="fas fa-circle text-green"></i> <strong>{{ trans('admin/statuslabels/table.deployable') }}</strong>: {!!  trans('admin/statuslabels/message.help.deployable')  !!}</p>
           </div>
       </div>
 
       <div class="box box-warning">
           <div class="box-body">
-              <p><i class="fa fa-circle text-orange"></i> <strong>Pending</strong>: {{ trans('admin/statuslabels/message.help.pending') }}</p>
+              <p><i class="fas fa-circle text-orange"></i> <strong>{{ trans('admin/statuslabels/table.pending') }}</strong>: {{ trans('admin/statuslabels/message.help.pending') }}</p>
           </div>
       </div>
       <div class="box box-danger">
           <div class="box-body">
-            <p><i class="fa fa-times text-red"></i> <strong>Undeployable</strong>: {{ trans('admin/statuslabels/message.help.undeployable') }}</p>
+            <p><i class="fas fa-times text-red"></i> <strong>{{ trans('admin/statuslabels/table.undeployable') }}</strong>: {{ trans('admin/statuslabels/message.help.undeployable') }}</p>
           </div>
       </div>
 
       <div class="box box-danger">
           <div class="box-body">
-              <p><i class="fa fa-times text-red"></i> <strong>Archived</strong>: {{ trans('admin/statuslabels/message.help.archived') }}</p>
+              <p><i class="fas fa-times text-red"></i> <strong>{{ trans('admin/statuslabels/table.archived') }}</strong>: {{ trans('admin/statuslabels/message.help.archived') }}</p>
           </div>
       </div>
 

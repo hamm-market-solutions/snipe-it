@@ -23,15 +23,55 @@ class SuppliersController extends Controller
     public function index(Request $request)
     {
         $this->authorize('view', Supplier::class);
-        $allowed_columns = ['id','name','address','phone','contact','fax','email','image','assets_count','licenses_count', 'accessories_count','url'];
+        $allowed_columns = ['id', 'name', 'address', 'phone', 'contact', 'fax', 'email', 'image', 'assets_count', 'licenses_count', 'accessories_count', 'url'];
         
         $suppliers = Supplier::select(
-                array('id','name','address','address2','city','state','country','fax', 'phone','email','contact','created_at','updated_at','deleted_at','image','notes')
+                ['id', 'name', 'address', 'address2', 'city', 'state', 'country', 'fax', 'phone', 'email', 'contact', 'created_at', 'updated_at', 'deleted_at', 'image', 'notes']
             )->withCount('assets as assets_count')->withCount('licenses as licenses_count')->withCount('accessories as accessories_count');
 
 
         if ($request->filled('search')) {
             $suppliers = $suppliers->TextSearch($request->input('search'));
+        }
+
+        if ($request->filled('name')) {
+            $suppliers->where('name', '=', $request->input('name'));
+        }
+
+        if ($request->filled('address')) {
+            $suppliers->where('address', '=', $request->input('address'));
+        }
+
+        if ($request->filled('address2')) {
+            $suppliers->where('address2', '=', $request->input('address2'));
+        }
+
+        if ($request->filled('city')) {
+            $suppliers->where('city', '=', $request->input('city'));
+        }
+
+        if ($request->filled('zip')) {
+            $suppliers->where('zip', '=', $request->input('zip'));
+        }
+
+        if ($request->filled('country')) {
+            $suppliers->where('country', '=', $request->input('country'));
+        }
+
+        if ($request->filled('fax')) {
+            $suppliers->where('fax', '=', $request->input('fax'));
+        }
+
+        if ($request->filled('email')) {
+            $suppliers->where('email', '=', $request->input('email'));
+        }
+
+        if ($request->filled('url')) {
+            $suppliers->where('url', '=', $request->input('url'));
+        }
+
+        if ($request->filled('notes')) {
+            $suppliers->where('notes', '=', $request->input('notes'));
         }
 
         // Set the offset to the API call's offset, unless the offset is higher than the actual count of items in which
@@ -47,6 +87,7 @@ class SuppliersController extends Controller
 
         $total = $suppliers->count();
         $suppliers = $suppliers->skip($offset)->take($limit)->get();
+
         return (new SuppliersTransformer)->transformSuppliers($suppliers, $total);
     }
 
@@ -85,6 +126,7 @@ class SuppliersController extends Controller
     {
         $this->authorize('view', Supplier::class);
         $supplier = Supplier::findOrFail($id);
+
         return (new SuppliersTransformer)->transformSupplier($supplier);
     }
 
@@ -123,16 +165,16 @@ class SuppliersController extends Controller
     public function destroy($id)
     {
         $this->authorize('delete', Supplier::class);
-        $supplier = Supplier::with('asset_maintenances', 'assets', 'licenses')->withCount('asset_maintenances as asset_maintenances_count','assets as assets_count', 'licenses as licenses_count')->findOrFail($id);
+        $supplier = Supplier::with('asset_maintenances', 'assets', 'licenses')->withCount('asset_maintenances as asset_maintenances_count', 'assets as assets_count', 'licenses as licenses_count')->findOrFail($id);
         $this->authorize('delete', $supplier);
 
 
         if ($supplier->assets_count > 0) {
-            return response()->json(Helper::formatStandardApiResponse('error', null,  trans('admin/suppliers/message.delete.assoc_assets', ['asset_count' => (int) $supplier->assets_count])));
+            return response()->json(Helper::formatStandardApiResponse('error', null, trans('admin/suppliers/message.delete.assoc_assets', ['asset_count' => (int) $supplier->assets_count])));
         }
 
         if ($supplier->asset_maintenances_count > 0) {
-            return response()->json(Helper::formatStandardApiResponse('error', null,  trans('admin/suppliers/message.delete.assoc_maintenances', ['asset_maintenances_count' => $supplier->asset_maintenances_count])));
+            return response()->json(Helper::formatStandardApiResponse('error', null, trans('admin/suppliers/message.delete.assoc_maintenances', ['asset_maintenances_count' => $supplier->asset_maintenances_count])));
         }
 
         if ($supplier->licenses_count > 0) {
@@ -140,8 +182,8 @@ class SuppliersController extends Controller
         }
 
         $supplier->delete();
-        return response()->json(Helper::formatStandardApiResponse('success', null,  trans('admin/suppliers/message.delete.success')));
 
+        return response()->json(Helper::formatStandardApiResponse('success', null, trans('admin/suppliers/message.delete.success')));
     }
 
     /**
@@ -150,7 +192,6 @@ class SuppliersController extends Controller
      * @author [A. Gianotto] [<snipe@snipe.net>]
      * @since [v4.0.16]
      * @see \App\Http\Transformers\SelectlistTransformer
-     *
      */
     public function selectlist(Request $request)
     {
@@ -178,7 +219,5 @@ class SuppliersController extends Controller
         }
 
         return (new SelectlistTransformer)->transformSelectlist($suppliers);
-
     }
-
 }

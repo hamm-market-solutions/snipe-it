@@ -4,7 +4,7 @@ return [
     'actions' 	                => 'Действия',
     'add'    	                => 'Добави нов',
     'cancel'                    => 'Отказ',
-    'checkin_and_delete'  	    => 'Вписване и изтриване на потребител',
+    'checkin_and_delete'  	    => 'Checkin All / Delete User',
     'delete'  	                => 'Изтриване',
     'edit'    	                => 'Редакция',
     'restore' 	                => 'Възстановяване',
@@ -20,5 +20,5 @@ return [
     'bulk_actions'              => 'Bulk Actions',
     'add_maintenance'           => 'Add Maintenance',
     'append'                    => 'Append',
-    'new'                       => 'New',
+    'new'                       => 'Нов',
 ];

@@ -6,7 +6,7 @@ return [
   'bulk_delete_warn'	=> 'Anda akan hapus: asset_count aset.',
     'bulk_update'		=> 'Aset Kemas Kini Pukal',
     'bulk_update_help'	=> 'Borang ini membolehkan anda mengemas kini berbilang aset sekaligus. Hanya isikan medan yang perlu anda ubah. Mana-mana medan yang dibiarkan kosong akan kekal tidak berubah.',
-    'bulk_update_warn'	=> 'Anda akan menyunting sifat aset aset_count.',
+    'bulk_update_warn'	=> 'You are about to edit the properties of a single asset.|You are about to edit the properties of :asset_count assets.',
     'checkedout_to'		=> 'Agihkan Kepada',
     'checkout_date'		=> 'Tarikh Checkout',
     'checkin_date'		=> 'Tarikh daftar masuk',
@@ -46,4 +46,6 @@ return [
     'asset_not_deployable' => 'That asset status is not deployable. This asset cannot be checked out.',
     'asset_deployable' => 'That status is deployable. This asset can be checked out.',
     'processing_spinner' => 'Processing...',
+    'optional_infos'  => 'Optional Information',
+    'order_details'   => 'Order Related Information'
 ];

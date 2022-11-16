@@ -6,11 +6,11 @@ return [
     'asset_depreciations'  					=> 'Amortissements',
     'create'  					            => 'Créer un amortissement',
     'depreciation_name'  					=> 'Nom d\'Amortissement',
-    'depreciation_min'                      => 'Floor Value of Depreciation',
+    'depreciation_min'                      => 'Valeur minimale après amortissement',
     'number_of_months'  					=> 'Mois',
     'update'  					            => 'Actualiser l\'amortissement',
     'depreciation_min'                      => 'Valeur minimale après amortissement',
-    'no_depreciations_warning'               => '<strong>Warning: </strong>
-                      You do not currently have any depreciations set up.
-                      Please set up at least one depreciation to view the depreciation report.',
+    'no_depreciations_warning'               => '<strong>Avertissement : </strong>
+                      Vous n\'avez actuellement aucun amortissement.
+                      Veuillez mettre en place au moins un amortissement pour consulter le rapport d\'amortissement.',
 ];

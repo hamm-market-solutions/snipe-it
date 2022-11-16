@@ -5,8 +5,8 @@ return [
     'undeployable' 		=> '<strong>警告:</strong>この資産は、現在 未配備としてマークされています。
                         この状態が変更された場合は、資産のステータスを更新してください。',
     'does_not_exist' 	=> '資産が存在しません。',
-    'does_not_exist_or_not_requestable' => 'That asset does not exist or is not requestable.',
-    'assoc_users'	 	=> 'この資産は利用者にチェックされているため削除できません。資産をチェック後、もう一度、やり直して下さい。 ',
+    'does_not_exist_or_not_requestable' => 'その資産は存在しないか要求可能ではありません。',
+    'assoc_users'	 	=> 'この資産はユーザーに貸し出されているため削除できません。資産を返却後、もう一度、やり直して下さい。 ',
 
     'create' => [
         'error'   		=> '資産は作成されませんでした。もう一度、やり直して下さい。',
@@ -17,6 +17,7 @@ return [
         'error'   			=> '資産は更新されませんでした。もう一度、やり直して下さい。',
         'success' 			=> '資産は正常に更新されました。',
         'nothing_updated'	=>  'フィールドが選択されていないため、更新されませんでした。',
+        'no_assets_selected'  =>  '資産が選択されていないため、何も更新されませんでした。',
     ],
 
     'restore' => [

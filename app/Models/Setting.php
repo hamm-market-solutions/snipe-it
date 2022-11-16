@@ -2,19 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
-use Parsedown;
+use App\Helpers\Helper;
 use Watson\Validating\ValidatingTrait;
+
 
 /**
  * Settings model.
  */
 class Setting extends Model
 {
+    use HasFactory;
     use Notifiable, ValidatingTrait;
 
     /**
@@ -93,7 +96,7 @@ class Setting extends Model
      *
      * @return \App\Models\Setting|null
      */
-    public static function getSettings(): ?Setting
+    public static function getSettings(): ?self
     {
         return Cache::rememberForever(self::APP_SETTINGS_KEY, function () {
             // Need for setup as no tables exist
@@ -103,7 +106,7 @@ class Setting extends Model
                 return null;
             }
         });
-        }
+    }
 
     /**
      * Check to see if setup process is complete.
@@ -113,17 +116,16 @@ class Setting extends Model
      */
     public static function setupCompleted(): bool
     {
-            try {
-                $usercount = User::withTrashed()->count();
-                $settingsCount = self::count();
-                return $usercount > 0 && $settingsCount > 0;
-            } catch (\Throwable $th) {
-                \Log::debug('User table and settings table DO NOT exist or DO NOT have records');
-                // Catch the error if the tables dont exit
-                return false;
-            }
+        try {
+            $usercount = User::withTrashed()->count();
+            $settingsCount = self::count();
 
-
+            return $usercount > 0 && $settingsCount > 0;
+        } catch (\Throwable $th) {
+            \Log::debug('User table and settings table DO NOT exist or DO NOT have records');
+            // Catch the error if the tables dont exit
+            return false;
+        }
     }
 
     /**
@@ -134,7 +136,6 @@ class Setting extends Model
     public function lar_ver(): string
     {
         $app = App::getFacadeApplication();
-
         return $app::VERSION;
     }
 
@@ -146,9 +147,7 @@ class Setting extends Model
     public static function getDefaultEula(): ?string
     {
         if (self::getSettings()->default_eula_text) {
-            $parsedown = new Parsedown();
-
-            return $parsedown->text(e(self::getSettings()->default_eula_text));
+            return Helper::parseEscapedMarkedown(self::getSettings()->default_eula_text);
         }
 
         return null;
@@ -184,9 +183,9 @@ class Setting extends Model
      * Escapes the custom CSS, and then un-escapes the greater-than symbol
      * so it can work with direct descendant characters for bootstrap
      * menu overrides like:.
-     * 
+     *
      * .skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li:hover>a
-     * 
+     *
      * Important: Do not remove the e() escaping here, as we output raw in the blade.
      *
      * @return string escaped CSS
@@ -207,16 +206,17 @@ class Setting extends Model
     }
 
     /**
-    * Converts bytes into human readable file size.
-    *
-    * @param string $bytes
+     * Converts bytes into human readable file size.
      *
-    * @return string human readable file size (2,87 Мб)
+     * @param string $bytes
      *
-    * @author Mogilev Arseny
-    */
+     * @return string human readable file size (2,87 Мб)
+     *
+     * @author Mogilev Arseny
+     */
     public static function fileSizeConvert($bytes): string
     {
+        $result = 0;
         $bytes = floatval($bytes);
         $arBytes = [
                 0 => [
@@ -241,15 +241,15 @@ class Setting extends Model
                 ],
             ];
 
-            foreach ($arBytes as $arItem) {
+        foreach ($arBytes as $arItem) {
             if ($bytes >= $arItem['VALUE']) {
                 $result = $bytes / $arItem['VALUE'];
                 $result = round($result, 2).$arItem['UNIT'];
-                    break;
-                }
+                break;
             }
+        }
 
-            return $result;
+        return $result;
     }
 
     /**
@@ -303,8 +303,6 @@ class Setting extends Model
 
         return 'required|min:'.$settings->pwd_secure_min.$security_rules;
     }
-
-
 
     /**
      * Get the specific LDAP settings

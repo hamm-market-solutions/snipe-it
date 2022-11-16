@@ -5,7 +5,7 @@ return [
     'undeployable' 		=> '<strong>Atención: </strong> Este equipo está marcado como no isntalabre.
                         Si no es correcto, actualiza su estado.',
     'does_not_exist' 	=> 'Equipo inexistente.',
-    'does_not_exist_or_not_requestable' => 'That asset does not exist or is not requestable.',
+    'does_not_exist_or_not_requestable' => 'Ese activo no existe o no puede ser solicitado.',
     'assoc_users'	 	=> 'Equipo asignado a un usuario, no se puede eliminar.',
 
     'create' => [
@@ -17,6 +17,7 @@ return [
         'error'   			=> 'Equipo no actualizado, intentalo de nuevo',
         'success' 			=> 'Equipo actualizado.',
         'nothing_updated'	=>  'Ningún campo fue seleccionado, por lo que nada ha sido actualizado.',
+        'no_assets_selected'  =>  'Ningún recurso fue seleccionado, por lo que no se actualizó nada.',
     ],
 
     'restore' => [

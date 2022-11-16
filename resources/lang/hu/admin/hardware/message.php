@@ -4,7 +4,7 @@ return [
 
     'undeployable' 		=> '<strong>Figyelem: </strong> Ez az eszköz pillanatnyilag  nem kiadható. Ha ez a helyzet változott, kérjük, frissítse az eszköz állapotát.',
     'does_not_exist' 	=> 'Eszköz nem létezik.',
-    'does_not_exist_or_not_requestable' => 'That asset does not exist or is not requestable.',
+    'does_not_exist_or_not_requestable' => 'Az eszköz nem létezik vagy nem igényelhető.',
     'assoc_users'	 	=> 'Ez az eszköz jelenleg ki van jelölve egy felhasználónak, és nem törölhető. Kérjük, először ellenőrizze az eszközt, majd próbálja meg újra törölni.',
 
     'create' => [
@@ -16,6 +16,7 @@ return [
         'error'   			=> 'Az eszköz nem frissült, próbálkozzon újra',
         'success' 			=> 'Az eszköz sikeresen frissült.',
         'nothing_updated'	=>  'Nem választottak ki mezőket, így semmi sem frissült.',
+        'no_assets_selected'  =>  'Egyetlen eszköz sem volt kiválasztva, így semmi sem frissült.',
     ],
 
     'restore' => [

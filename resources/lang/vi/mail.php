@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'acceptance_asset_accepted' => 'A user has accepted an item',
+    'acceptance_asset_declined' => 'A user has declined an item',
     'a_user_canceled' => 'Người dùng đã hủy bỏ một khoản mục yêu cầu trên trang web',
     'a_user_requested' => 'Người dùng đã yêu cầu một mục trên trang web',
     'accessory_name' => 'Tên Phụ Kiện:',
@@ -9,7 +11,7 @@ return [
     'asset' => 'Tài sản:',
     'asset_name' => 'Tên tài sản:',
     'asset_requested' => 'Tài sản được yêu cầu',
-    'asset_tag' => 'Asset Tag',
+    'asset_tag' => 'Thẻ tài sản',
     'assigned_to' => 'Cấp phát cho',
     'best_regards' => 'Trân trọng,',
     'canceled' => 'Đã hủy bỏ:',
