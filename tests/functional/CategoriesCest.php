@@ -1,13 +1,14 @@
 <?php
 
+
 class CategoriesCest
 {
     public function _before(FunctionalTester $I)
     {
-        $I->amOnPage('/login');
-        $I->fillField('username', 'admin');
-        $I->fillField('password', 'password');
-        $I->click('Login');
+         $I->amOnPage('/login');
+         $I->fillField('username', 'admin');
+         $I->fillField('password', 'password');
+         $I->click('Login');
     }
 
     public function _after(FunctionalTester $I)
@@ -26,7 +27,7 @@ class CategoriesCest
 
     public function failsEmptyValidation(FunctionalTester $I)
     {
-        $I->wantTo('Test Validation Fails with blank elements');
+        $I->wantTo("Test Validation Fails with blank elements");
         $I->amOnPage(route('categories.create'));
         $I->click('Save');
         $I->seeElement('.alert-danger');
@@ -36,8 +37,8 @@ class CategoriesCest
 
     public function passesCorrectValidation(FunctionalTester $I)
     {
-        $category = \App\Models\Category::factory()->assetLaptopCategory()->make([
-            'name' => 'Test Category',
+        $category = factory(App\Models\Category::class)->states('asset-laptop-category')->make([
+            'name' => "Test Category"
         ]);
         $values = [
             'category_type'         => $category->category_type,
@@ -46,19 +47,18 @@ class CategoriesCest
             'name'                  => $category->name,
             'require_acceptance'    => $category->require_acceptance,
         ];
-        $I->wantTo('Test Validation Succeeds');
+        $I->wantTo("Test Validation Succeeds");
         $I->amOnPage(route('categories.create'));
         $I->submitForm('form#create-form', $values);
         $I->seeRecord('categories', $values);
         $I->dontSee('&lt;span class=&quot;');
         $I->seeElement('.alert-success');
     }
-
     public function allowsDelete(FunctionalTester $I)
     {
         $I->wantTo('Ensure I can delete a category');
-        $category = \App\Models\Category::factory()->assetLaptopCategory()->create([
-            'name'=>'Deletable Test Category',
+        $category = factory(App\Models\Category::class)->states('asset-laptop-category')->create([
+            'name'=>"Deletable Test Category"
         ]);
         $I->sendDelete(route('categories.destroy', $category->id), ['_token' => csrf_token()]);
         $I->seeResponseCodeIs(200);

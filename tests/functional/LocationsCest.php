@@ -1,16 +1,17 @@
 <?php
 
+
 use App\Models\Location;
 
 class LocationsCest
 {
     public function _before(FunctionalTester $I)
     {
-        // logging in
-        $I->amOnPage('/login');
-        $I->fillField('username', 'admin');
-        $I->fillField('password', 'password');
-        $I->click('Login');
+          // logging in
+         $I->amOnPage('/login');
+         $I->fillField('username', 'admin');
+         $I->fillField('password', 'password');
+         $I->click('Login');
     }
 
     // tests
@@ -26,7 +27,7 @@ class LocationsCest
 
     public function failsEmptyValidation(FunctionalTester $I)
     {
-        $I->wantTo('Test Validation Fails with blank elements');
+        $I->wantTo("Test Validation Fails with blank elements");
         $I->amOnPage(route('locations.create'));
         $I->click('Save');
         $I->seeElement('.alert-danger');
@@ -35,17 +36,16 @@ class LocationsCest
 
     public function failsShortValidation(FunctionalTester $I)
     {
-        $I->wantTo('Test Validation Fails with short values');
+        $I->wantTo("Test Validation Fails with short values");
         $I->amOnPage(route('locations.create'));
         $I->fillField('name', 't');
         $I->click('Save');
         $I->seeElement('.alert-danger');
         $I->see('The name must be at least 2 characters', '.alert-msg');
     }
-
     public function passesCorrectValidation(FunctionalTester $I)
     {
-        $location = \App\Models\Location::factory()->make();
+        $location = factory(App\Models\Location::class)->make();
         $values = [
             'name'              => $location->name,
             'parent_id'         => $I->getLocationId(),
@@ -57,7 +57,7 @@ class LocationsCest
             'country'           => $location->country,
             'zip'               => $location->zip,
         ];
-        $I->wantTo('Test Validation Succeeds');
+        $I->wantTo("Test Validation Succeeds");
         $I->amOnPage(route('locations.create'));
         $I->submitForm('form#create-form', $values);
         $I->seeRecord('locations', $values);
@@ -67,7 +67,7 @@ class LocationsCest
     public function allowsDelete(FunctionalTester $I)
     {
         $I->wantTo('Ensure I can delete a location');
-        $location = \App\Models\Location::factory()->create();
+        $location = factory(App\Models\Location::class)->create();
         $I->sendDelete(route('locations.destroy', $location->id), ['_token' => csrf_token()]);
         $I->seeResponseCodeIs(200);
     }

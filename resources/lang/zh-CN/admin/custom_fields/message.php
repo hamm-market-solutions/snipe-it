@@ -49,12 +49,6 @@ return array(
 
     ),
 
-    'fieldset_default_value' => array(
-
-        'error' => '验证默认字段集时出错。',
-
-    ),
-
 
 
 

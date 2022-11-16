@@ -1,12 +1,13 @@
 @component('mail::message')
 
-{{ trans('general.reminder_checked_out_items', array('reply_to_name' => config('mail.reply_to.name'), 'reply_to_address' => config('mail.reply_to.address')))}}
+This is a reminder of the items currently checked out to you. If you feel this list is inaccurate (something is missing, or something appears here that you believe you never received), please email {{ config('mail.reply_to.name') }} at {{ config('mail.reply_to.address') }}.
+
 
 @component('mail::table')
 
 @if ($assets->count() > 0)
 
-## {{ $assets->count() }} {{ trans('general.assets') }}
+## {{ $assets->count() }} Assets
 
 <table width="100%">
 <tr><th align="left">{{ trans('mail.name') }} </th><th align="left">{{ trans('mail.asset_tag') }}</th></tr>
@@ -17,7 +18,7 @@
 @endif
 
 @if ($accessories->count() > 0)
-## {{ $accessories->count() }} {{ trans('general.accessories') }}
+## {{ $accessories->count() }} Accessories
 
 <table width="100%">
 <tr><th align="left">{{ trans('mail.name') }} </th></tr>
@@ -28,7 +29,7 @@
 @endif
 
 @if ($licenses->count() > 0)
-## {{ $licenses->count() }} {{ trans('general.licenses') }}
+## {{ $licenses->count() }} Licenses
 
 <table width="100%">
 <tr><th align="left"{{ trans('mail.name') }} </th></tr>

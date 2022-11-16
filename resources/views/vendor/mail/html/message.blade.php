@@ -2,47 +2,33 @@
 {{-- Header --}}
 @slot('header')
 @component('mail::header', ['url' => config('app.url')])
+@if (isset($snipeSettings) && ($snipeSettings->show_images_in_email=='1' ) && ($snipeSettings::setupCompleted()))
 
-{{-- Check that the $snipeSettings variable is set, images are set to be shown, and setup is complete --}}
+@if ($snipeSettings->brand == '3')
 
+@if ($snipeSettings->email_logo!='')
+<img style="max-height: 100px; vertical-align:middle;" src="{{ \Storage::disk('public')->url(e($snipeSettings->email_logo)) }}">
+@elseif ($snipeSettings->logo!='')
+<img style="max-height: 100px; vertical-align:middle;" src="{{ \Storage::disk('public')->url(e($snipeSettings->logo)) }}">
+@endif
+{{ $snipeSettings->site_name }}
+<br><br>
 
-@if (isset($snipeSettings) && ($snipeSettings::setupCompleted()))
+@elseif ($snipeSettings->brand == '2')
+@if ($snipeSettings->email_logo!='')
 
-    {{-- Show images in email!  --}}
-    @if (($snipeSettings->show_images_in_email=='1' ) && (($snipeSettings->brand == '3') || ($snipeSettings->brand == '2')))
-
-        {{-- $snipeSettings->brand = 1 = Text  --}}
-        {{-- $snipeSettings->brand = 2 = Logo  --}}
-        {{-- $snipeSettings->brand = 3 = Logo + Text  --}}
-        @if ($snipeSettings->brand == '3')
-
-            @if ($snipeSettings->email_logo!='')
-            <img style="max-height: 100px; vertical-align:middle;" src="{{ \Storage::disk('public')->url(e($snipeSettings->email_logo)) }}">
-            @elseif ($snipeSettings->logo!='')
-            <img style="max-height: 100px; vertical-align:middle;" src="{{ \Storage::disk('public')->url(e($snipeSettings->logo)) }}">
-            @endif
-
-            <br><br>
-            {{ $snipeSettings->site_name }}
-            <br><br>
-        {{-- else if branding type is just logo --}}
-        @elseif ($snipeSettings->brand == '2')
-            @if ($snipeSettings->email_logo!='')
-
-            <img style="max-width: 100px; vertical-align:middle;" src="{{ \Storage::disk('public')->url(e($snipeSettings->email_logo)) }}">
-            @elseif ($snipeSettings->logo!='')
-            <img style="max-width: 100px; vertical-align:middle;" src="{{ \Storage::disk('public')->url(e($snipeSettings->logo)) }}">
-            @endif
-        @endif
-    @else
-        {{ $snipeSettings->site_name }}
-    @endif
-
-{{-- Either the $snipeSettings variable isn't set or setup is not complete --}}
-@else
-{{ config('app.name') }}
+<img style="max-width: 100px; vertical-align:middle;" src="{{ \Storage::disk('public')->url(e($snipeSettings->email_logo)) }}">
+@elseif ($snipeSettings->logo!='')
+<img style="max-width: 100px; vertical-align:middle;" src="{{ \Storage::disk('public')->url(e($snipeSettings->logo)) }}">
 @endif
 
+@else
+{{ $snipeSettings->site_name }}
+@endif
+
+@else
+Snipe-IT
+@endif
 @endcomponent
 @endslot
 

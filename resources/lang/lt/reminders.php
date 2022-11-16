@@ -14,8 +14,11 @@ return array(
     */
 
     "password" => "Slaptažodžiai turi sutapti ir būti iš 6 simbolių.",
+
     "user"     => "Neteisingas naudotojas arba el. paštas",
-    "token"    => 'This password reset token is invalid or expired, or does not match the username provided.',
-    'sent'	   => 'If a matching user with a valid email address exists in our system, a password recovery email has been sent.',
+
+    "token"    => "Šis slaptažodžio atnaujinimas negaliojantis.",
+
+    "sent" => "Jūsų slaptažodžio priminimas bus išsiųstas jei nurodytas el. pašto adresas yra sistemoje!",
 
 );

@@ -49,12 +49,6 @@ return array(
 
     ),
 
-    'fieldset_default_value' => array(
-
-        'error' => 'Errore durante la convalida dei valori fieldset predefiniti.',
-
-    ),
-
 
 
 

@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile.alpine
     container_name: snipeit
     ports:
-    - "8000:80"
+    - 8000:80
     volumes:
     - ./logs:/var/www/html/storage/logs
     depends_on:
@@ -19,26 +19,24 @@ services:
     - snipeit-backend
 
   mariadb:
-    image: mariadb:10.6.4-focal
+    image: mariadb:latest
     volumes:
     - db:/var/lib/mysql
     env_file:
     - .env.docker
     networks:
     - snipeit-backend
-    ports:
-      - "3306:3306"
 
   redis:
-    image: redis:6.2.5-buster
+    image: redis:latest
     networks:
     - snipeit-backend
 
   mailhog:
-    image: mailhog/mailhog:v1.0.1
+    image: mailhog/mailhog:latest
     ports:
     # - 1025:1025
-    - "8025:8025"
+    - 8025:8025
     networks:
     - snipeit-backend
 

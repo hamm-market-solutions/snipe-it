@@ -6,7 +6,6 @@ return [
     'archived'  				=> 'Архивиран',
     'asset'  					=> 'Актив',
     'bulk_checkout'             => 'Изписване на активи',
-    'bulk_checkin'              => 'Checkin Assets',
     'checkin'  					=> 'Връщане на актив',
     'checkout'  				=> 'Проверка на активите',
     'clone'  					=> 'Копиране на актив',

@@ -6,7 +6,6 @@ return [
     'archived'  				=> 'argief',
     'asset'  					=> 'bate',
     'bulk_checkout'             => 'Checkout Assets',
-    'bulk_checkin'              => 'Checkin Assets',
     'checkin'  					=> 'Kontrole bate',
     'checkout'  				=> 'Checkout Asset',
     'clone'  					=> 'Klone Bate',

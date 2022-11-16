@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\DB;
 class PredefinedKitCheckoutService
 {
     use AuthorizesRequests;
-
     /**
      * @param Request $request, this function works with fields: checkout_at, expected_checkin, note
      * @param PredefinedKit $kit kit for checkout
@@ -44,8 +43,8 @@ class PredefinedKitCheckoutService
                 return ['errors' => $errors];
             }
 
-            $checkout_at = date('Y-m-d H:i:s');
-            if (($request->filled('checkout_at')) && ($request->get('checkout_at') != date('Y-m-d'))) {
+            $checkout_at = date("Y-m-d H:i:s");
+            if (($request->filled('checkout_at')) && ($request->get('checkout_at') != date("Y-m-d"))) {
                 $checkout_at = $request->get('checkout_at');
             }
 
@@ -60,7 +59,7 @@ class PredefinedKitCheckoutService
 
             $errors = $this->saveToDb($user, $admin, $checkout_at, $expected_checkin, $errors, $assets_to_add, $license_seats_to_add, $consumables_to_add, $accessories_to_add, $note);
 
-            return ['errors' => $errors, 'assets' => $assets_to_add, 'accessories' => $accessories_to_add, 'consumables' => $consumables_to_add];
+            return ['errors' => $errors, 'assets' => $assets_to_add, 'accessories' => $accessories_to_add, 'consumables' => $consumables_to_add ];
         } catch (ModelNotFoundException $e) {
             return ['errors' => [$e->getMessage()]];
         } catch (CheckoutNotAllowed $e) {
@@ -80,10 +79,12 @@ class PredefinedKitCheckoutService
             $assets = $model->assets;
             $quantity = $model->pivot->quantity;
             foreach ($assets as $asset) {
+
                 if (
                     $asset->availableForCheckout()
-                    && ! $asset->is($user)
+                    && !$asset->is($user)
                 ) {
+
                     $this->authorize('checkout', $asset);
                     $quantity -= 1;
                     $assets_to_add[] = $asset;
@@ -115,7 +116,6 @@ class PredefinedKitCheckoutService
                 $seats_to_add[] = $license->freeSeats[$i];
             }
         }
-
         return $seats_to_add;
     }
 
@@ -127,7 +127,6 @@ class PredefinedKitCheckoutService
                 $errors[] = trans('admin/kits/general.none_consumables', ['consumable'=> $consumable->name, 'qty' => $consumable->pivot->quantity]);
             }
         }
-
         return $consumables;
     }
 
@@ -139,7 +138,6 @@ class PredefinedKitCheckoutService
                 $errors[] = trans('admin/kits/general.none_accessory', ['accessory'=> $accessory->name, 'qty' => $accessory->pivot->quantity]);
             }
         }
-
         return $accessories;
     }
 
@@ -171,7 +169,7 @@ class PredefinedKitCheckoutService
                     $consumable->users()->attach($consumable->id, [
                         'consumable_id' => $consumable->id,
                         'user_id' => $admin->id,
-                        'assigned_to' => $user->id,
+                        'assigned_to' => $user->id
                     ]);
                     event(new CheckoutableCheckedOut($consumable, $user, $admin, $note));
                 }
@@ -181,11 +179,10 @@ class PredefinedKitCheckoutService
                     $accessory->users()->attach($accessory->id, [
                         'accessory_id' => $accessory->id,
                         'user_id' => $admin->id,
-                        'assigned_to' => $user->id,
+                        'assigned_to' => $user->id
                     ]);
                     event(new CheckoutableCheckedOut($accessory, $user, $admin, $note));
                 }
-
                 return $errors;
             }
         );

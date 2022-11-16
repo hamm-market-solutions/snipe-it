@@ -6,7 +6,6 @@ return [
     'archived'  				=> 'Ang Archive',
     'asset'  					=> 'Ang Asset',
     'bulk_checkout'             => 'Checkout Assets',
-    'bulk_checkin'              => 'Checkin Assets',
     'checkin'  					=> 'I-checkin ang Asset',
     'checkout'  				=> 'I-checkout ang Asset',
     'clone'  					=> 'I-clone ang Asset',

@@ -6,7 +6,6 @@ return [
     'archived'  				=> 'ถูกเก็บไว้',
     'asset'  					=> 'สินทรัพย์',
     'bulk_checkout'             => 'ตรวจสอบสินทรัพย์',
-    'bulk_checkin'              => 'Checkin Assets',
     'checkin'  					=> 'เช็คอินสินทรัพย์',
     'checkout'  				=> 'ตรวจสอบสินทรัพย์',
     'clone'  					=> 'คัดลอกแบบสินทรัพย์',

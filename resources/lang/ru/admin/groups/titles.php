@@ -12,5 +12,5 @@ return [
     'deny' 	 				=> 'Запретить',
     'permission'            => 'Permission',
     'grant'                 => 'Grant',
-    'no_permissions'        => 'Эта группа не имеет прав доступа.'
+    'no_permissions'        => 'This group has no permissions.'
 ];

@@ -1,13 +1,14 @@
 <?php
 
-class DepreciationsCest
+
+class DepreciationCest
 {
     public function _before(FunctionalTester $I)
     {
-        $I->amOnPage('/login');
-        $I->fillField('username', 'admin');
-        $I->fillField('password', 'password');
-        $I->click('Login');
+         $I->amOnPage('/login');
+         $I->fillField('username', 'admin');
+         $I->fillField('password', 'password');
+         $I->click('Login');
     }
 
     // tests
@@ -23,7 +24,7 @@ class DepreciationsCest
 
     public function failsEmptyValidation(FunctionalTester $I)
     {
-        $I->wantTo('Test Validation Fails with blank elements');
+        $I->wantTo("Test Validation Fails with blank elements");
         $I->amOnPage(route('depreciations.create'));
         $I->click('Save');
         $I->seeElement('.alert-danger');
@@ -33,7 +34,7 @@ class DepreciationsCest
 
     public function failsShortValidation(FunctionalTester $I)
     {
-        $I->wantTo('Test Validation Fails with short name');
+        $I->wantTo("Test Validation Fails with short name");
         $I->amOnPage(route('depreciations.create'));
         $I->fillField('name', 't2');
         $I->click('Save');
@@ -43,14 +44,14 @@ class DepreciationsCest
 
     public function passesCorrectValidation(FunctionalTester $I)
     {
-        $depreciation = \App\Models\Depreciation::factory()->computer()->make([
-            'name'=>'Test Depreciation',
+        $depreciation = factory(App\Models\Depreciation::class)->states('computer')->make([
+            'name'=>'Test Depreciation'
         ]);
         $values = [
             'name'      => $depreciation->name,
-            'months'    => $depreciation->months,
+            'months'    => $depreciation->months
         ];
-        $I->wantTo('Test Validation Succeeds');
+        $I->wantTo("Test Validation Succeeds");
         $I->amOnPage(route('depreciations.create'));
         $I->submitForm('form#create-form', $values);
         $I->seeRecord('depreciations', $values);

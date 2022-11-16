@@ -12,7 +12,8 @@ class AddEolOnModelsTable extends Migration
     public function up()
     {
         Schema::table('models', function ($table) {
-            $table->integer('eol')->nullable()->default(null);
+            $table->integer('eol')->nullable()->default(NULL);
+
         });
     }
 
@@ -27,4 +28,5 @@ class AddEolOnModelsTable extends Migration
             $table->dropColumn('old');
         });
     }
+
 }

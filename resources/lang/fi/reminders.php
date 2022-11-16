@@ -14,8 +14,11 @@ return array(
     */
 
     "password" => "Salasanan tulee olla 6 merkkiä pitkä ja sen tulee täsmätä vahvistukseen.",
+
     "user"     => "Käyttäjätunnus tai sähköpostiosoite on virheellinen",
-    "token"    => 'This password reset token is invalid or expired, or does not match the username provided.',
-    'sent'	   => 'If a matching user with a valid email address exists in our system, a password recovery email has been sent.',
+
+    "token"    => "Tämä salasanan nollauspoletti on virheellinen.",
+
+    "sent" => "Jos sähköpostiosoite löytyi, salasanan muistutusviesti lähetettiin!",
 
 );

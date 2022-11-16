@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\CustomField;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Migrations\Migration;
+use App\Models\CustomField;
+use Illuminate\Database\Schema\Blueprint;
 
 /**
  * Fixes issue #2551 where columns got donked if the field name in non-ascii
@@ -15,23 +15,30 @@ use Illuminate\Support\Facades\Schema;
  *
  * @author [A. Gianotto] [<snipe@snipe.net>]
  * @since [v4.0]
- * @return array
+ * @return Array
  */
-function updateLegacyColumnName($customfield)
-{
+
+function updateLegacyColumnName($customfield) {
+
     $name_to_db_name = CustomField::name_to_db_name($customfield->name);
     //\Log::debug('Trying to rename '.$name_to_db_name." to ".$customfield->convertUnicodeDbSlug()."...\n");
 
     if (Schema::hasColumn(CustomField::$table_name, $name_to_db_name)) {
+
         return Schema::table(CustomField::$table_name,
-            function ($table) use ($name_to_db_name, $customfield) {
+            function ($table)  use ($name_to_db_name, $customfield) {
                 $table->renameColumn($name_to_db_name, $customfield->convertUnicodeDbSlug());
             }
         );
+
     } else {
         //\Log::debug('Legacy DB column '.$name_to_db_name.' was not found on the assets table.');
     }
+
 }
+
+
+
 
 class FixUtf8CustomFieldColumnNames extends Migration
 {
@@ -45,14 +52,15 @@ class FixUtf8CustomFieldColumnNames extends Migration
         $platform = Schema::getConnection()->getDoctrineSchemaManager()->getDatabasePlatform();
         $platform->registerDoctrineTypeMapping('enum', 'string');
 
-        if (! Schema::hasColumn('custom_fields', 'db_column')) {
+        if (!Schema::hasColumn('custom_fields', 'db_column')) {
             Schema::table('custom_fields', function ($table) {
                 $table->string('db_column')->nullable();
                 $table->text('help_text')->nullable();
             });
         }
 
-        foreach (CustomField::all() as $field) {
+        foreach(CustomField::all() as $field) {
+
             $db_column = $field->convertUnicodeDbSlug();
 
             DB::table('custom_fields')
@@ -61,7 +69,11 @@ class FixUtf8CustomFieldColumnNames extends Migration
 
             // change the name of the column
             updateLegacyColumnName($field);
+
+
         }
+
+
     }
 
     /**
@@ -76,4 +88,5 @@ class FixUtf8CustomFieldColumnNames extends Migration
             $table->dropColumn('help_text');
         });
     }
+
 }

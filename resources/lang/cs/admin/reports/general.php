@@ -3,8 +3,8 @@
 return [
     'info'   => 'Zvolte možnosti zprávy o majetku.',
     'deleted_user' => 'Deleted user',
-    'send_reminder' => 'Poslat připomínku',
-    'reminder_sent' => 'Připomínka odeslána',
+    'send_reminder' => 'Send reminder',
+    'reminder_sent' => 'Reminder sent',
     'acceptance_deleted' => 'Acceptance request deleted',
     'acceptance_request' => 'Acceptance request'
 ];

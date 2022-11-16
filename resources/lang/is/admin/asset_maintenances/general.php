@@ -11,6 +11,4 @@
         'calibration'        => 'Kvörðun',
         'software_support'   => 'Þjónusta við hugbúnað',
         'hardware_support'   => 'Þjónusta við vélbúnað',
-        'configuration_change'   => 'Breytingar á stillingum',
-        'pat_test'           => 'Pat próf',
     ];

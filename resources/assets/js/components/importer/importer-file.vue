@@ -21,7 +21,7 @@
                         <label for="import-update">Update Existing Values?:</label>
                     </div>
                     <div class="col-md-7 col-xs-12">
-                        <input type="checkbox" class="icheckbox_minimal" name="import-update" v-model="options.update">
+                        <input type="checkbox" class="iCheck minimal" name="import-update" v-model="options.update">
                     </div>
                 </div><!-- /dynamic-form-row -->
 
@@ -30,7 +30,7 @@
                         <label for="send-welcome">Send Welcome Email for new Users?</label>
                     </div>
                     <div class="col-md-7 col-xs-12">
-                        <input type="checkbox" class="icheckbox_minimal" name="send-welcome" v-model="options.send_welcome">
+                        <input type="checkbox" class="minimal" name="send-welcome" v-model="options.send_welcome">
                     </div>
                 </div><!-- /dynamic-form-row -->
 
@@ -39,7 +39,7 @@
                         <label for="run-backup">Backup before importing?</label>
                     </div>
                     <div class="col-md-7 col-xs-12">
-                        <input type="checkbox" class="icheckbox_minimal" name="run-backup" v-model="options.run_backup">
+                        <input type="checkbox" class="minimal" name="run-backup" v-model="options.run_backup">
                     </div>
                 </div><!-- /dynamic-form-row -->
 
@@ -100,7 +100,6 @@
 </template>
 
 <script>
-    var baseUrl = $('meta[name="baseUrl"]').attr('content');
     export default {
         props: ['file', 'customFields'],
         data() {
@@ -112,8 +111,6 @@
                 options: {
                     importType: this.file.import_type,
                     update: false,
-                    send_welcome: false,
-                    run_backup: false,
                     importTypes: [
                         { id: 'asset', text: 'Assets' },
                         { id: 'accessory', text: 'Accessories' },
@@ -150,17 +147,15 @@
                     assets: [
                         {id: 'asset_tag', text: 'Asset Tag' },
                         {id: 'asset_model', text: 'Model Name' },
+                        {id: 'asset_notes', text: 'Asset Notes' },
+                        {id: 'model_notes', text: 'Model Notes' },
                         {id: 'checkout_class', text: 'Checkout Type' },
                         {id: 'checkout_location', text: 'Checkout Location' },
                         {id: 'image', text: 'Image Filename' },
                         {id: 'model_number', text: 'Model Number' },
-                        {id: 'asset_notes', text: 'Asset Notes' },
-                        {id: 'model_notes', text: 'Model Notes' },
                         {id: 'full_name', text: 'Full Name' },
                         {id: 'status', text: 'Status' },
                         {id: 'warranty_months', text: 'Warranty Months' },
-                        {id: 'last_audit_date', text: 'Last Audit Date' },
-                        {id: 'next_audit_date', text: 'Audit Date' },
                     ],
                     consumables: [
                         {id: 'item_no', text: "Item Number"},
@@ -186,14 +181,14 @@
                         {id: 'last_name', text: 'Last Name' },
                         {id: 'phone_number', text: 'Phone Number' },
                         {id: 'manager_first_name', text: 'Manager First Name' },
-                        {id: 'notes', text: 'Notes' },
                         {id: 'manager_last_name', text: 'Manager Last Name' },
+                        {id: 'notes', text: 'Notes' },
                         {id: 'activated', text: 'Activated' },
                         {id: 'address', text: 'Address' },
                         {id: 'city', text: 'City' },
                         {id: 'state', text: 'State' },
-                        {id: 'country', text: 'Country' },
                         {id: 'zip', text: 'ZIP' },
+                        {id: 'country', text: 'Country' },
 
                     ],
                     customFields: this.customFields,
@@ -264,7 +259,7 @@
                 }
                 this.statusType='pending';
                 this.statusText = "Processing...";
-                this.$http.post(baseUrl + 'api/v1/imports/process/' + this.file.id, {
+                this.$http.post(route('api.imports.importFile', this.file.id), {
                     'import-update': this.options.update,
                     'send-welcome': this.options.send_welcome,
                     'import-type': this.options.importType,

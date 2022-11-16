@@ -18,5 +18,6 @@ class SettingObserver
     {
         Cache::forget(Setting::APP_SETTINGS_KEY);
         Cache::forget(Setting::SETUP_CHECK_KEY);
+
     }
 }

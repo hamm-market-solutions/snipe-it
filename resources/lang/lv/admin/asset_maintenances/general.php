@@ -11,6 +11,4 @@
         'calibration'        => 'Kalibrācija',
         'software_support'   => 'Programmatūras atbalsts',
         'hardware_support'   => 'Aparatūras atbalsts',
-        'configuration_change'   => 'Configuration Change',
-        'pat_test'           => 'PAT Test',
     ];

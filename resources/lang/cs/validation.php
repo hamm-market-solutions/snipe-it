@@ -64,7 +64,7 @@ return [
         'string'  => ':attribute musí mít minimálně :min znaků.',
         'array'   => 'Atribut musí mít alespoň: min položky.',
     ],
-    'starts_with'          => ':attribute musí končit jednou z následujících hodnot: :values.',
+    'starts_with'          => 'The :attribute must start with one of the following: :values.',
     'not_in'               => 'Zvolený :attribute je neplatný.',
     'numeric'              => ':attribute musí být číslo.',
     'present'              => 'Pole atributu musí být přítomno.',
@@ -90,16 +90,7 @@ return [
     'uploaded'             => 'Atribut: se nepodařilo nahrát.',
     'url'                  => 'Formát :attribute je neplatný.',
     'unique_undeleted'     => 'Je třeba, aby se :attribute neopakoval.',
-    'non_circular'         => ':attribute nesmí vytvořit kruhový odkaz.',
-    'disallow_same_pwd_as_user_fields' => 'Password cannot be the same as the username.',
-    'letters'              => 'Password must contain at least one letter.',
-    'numbers'              => 'Password must contain at least one number.',
-    'case_diff'            => 'Password must use mixed case.',
-    'symbols'              => 'Password must contain symbols.',
-    'gte'                  => [
-        'numeric'          => 'Value cannot be negative'
-    ],
-
+    'non_circular'         => 'The :attribute must not create a circular reference.',
 
     /*
     |--------------------------------------------------------------------------

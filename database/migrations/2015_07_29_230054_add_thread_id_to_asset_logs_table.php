@@ -1,11 +1,12 @@
 <?php
 
-    use App\Models\Actionlog;
-    use Illuminate\Database\Migrations\Migration;
     use Illuminate\Database\Schema\Blueprint;
+    use Illuminate\Database\Migrations\Migration;
+    use App\Models\Actionlog;
 
     class AddThreadIdToAssetLogsTable extends Migration
     {
+
         /**
          * currentAssetId
          *
@@ -39,14 +40,14 @@
          *
          * @var array
          */
-        protected $threadStartingActionTypes = ['checkout', 'requested'];
+        protected $threadStartingActionTypes = [ 'checkout', 'requested' ];
 
         /**
          * threadFinalActionTypes
          *
          * @var array
          */
-        protected $threadFinalActionTypes = ['checkin from'];
+        protected $threadFinalActionTypes = [ 'checkin from' ];
 
         /**
          * actionlog
@@ -98,6 +99,8 @@
             // }
         }
 
+
+
         /**
          * Reverse the migrations.
          *
@@ -105,10 +108,12 @@
          */
         public function down()
         {
-            Schema::table('asset_logs', function (Blueprint $table) {
-                $table->dropIndex('thread_id');
-                $table->dropColumn('thread_id');
-            });
+
+            Schema::table( 'asset_logs', function ( Blueprint $table ) {
+
+                $table->dropIndex( 'thread_id' );
+                $table->dropColumn( 'thread_id' );
+            } );
         }
 
         /**
@@ -120,8 +125,9 @@
          * @author  Vincent Sposato <vincent.sposato@gmail.com>
          * @version v1.0
          */
-        protected function hasAssetChanged($assetLog)
+        protected function hasAssetChanged( $assetLog )
         {
+
             return $assetLog->asset_id !== $this->currentAssetId;
         }
 
@@ -133,10 +139,11 @@
          * @author  Vincent Sposato <vincent.sposato@gmail.com>
          * @version v1.0
          */
-        protected function resetCurrentAssetInformation($assetLog)
+        protected function resetCurrentAssetInformation( $assetLog )
         {
-            $this->currentAssetId = $assetLog->asset_id;
-            $this->currentAssetLogId = $assetLog->id;
+
+            $this->currentAssetId       = $assetLog->asset_id;
+            $this->currentAssetLogId    = $assetLog->id;
             $this->startOfCurrentThread = true;
         }
 
@@ -149,9 +156,10 @@
          * @author  Vincent Sposato <vincent.sposato@gmail.com>
          * @version v1.0
          */
-        protected function hasReachedEndOfChain($assetLog)
+        protected function hasReachedEndOfChain( $assetLog )
         {
-            return in_array($assetLog->action_type, $this->threadFinalActionTypes)
+
+            return in_array( $assetLog->action_type, $this->threadFinalActionTypes )
                    && $this->startOfCurrentThread == false;
         }
 
@@ -162,9 +170,10 @@
          */
         protected function clearCurrentAssetInformation()
         {
+
             $this->startOfCurrentThread = true;
-            $this->currentAssetLogId = null;
-            $this->currentAssetId = null;
+            $this->currentAssetLogId    = null;
+            $this->currentAssetId       = null;
         }
 
         /**
@@ -175,15 +184,16 @@
          * @author  Vincent Sposato <vincent.sposato@gmail.com>
          * @version v1.0
          */
-        protected function updateAssetLogWithThreadInformation($assetLog)
+        protected function updateAssetLogWithThreadInformation( $assetLog )
         {
-            $loadedAssetLog = Actionlog::find($assetLog->id);
+
+            $loadedAssetLog = Actionlog::find( $assetLog->id );
 
             $loadedAssetLog->thread_id = $this->currentAssetLogId;
 
             $loadedAssetLog->update();
 
-            unset($loadedAssetLog);
+            unset( $loadedAssetLog );
         }
 
         /**
@@ -195,9 +205,11 @@
          * @author  Vincent Sposato <vincent.sposato@gmail.com>
          * @version v1.0
          */
-        protected function hasBegunNewChain($assetLog)
+        protected function hasBegunNewChain( $assetLog )
         {
-            return in_array($assetLog->action_type, $this->threadStartingActionTypes)
+
+            return in_array( $assetLog->action_type, $this->threadStartingActionTypes )
                    && $this->startOfCurrentThread == true;
         }
+
     }

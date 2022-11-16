@@ -4,7 +4,7 @@ return [
     'actions' 	                => 'Үйлдлүүд',
     'add'    	                => 'Шинийг нэмэх',
     'cancel'                    => 'Болих',
-    'checkin_and_delete'  	    => 'Checkin All / Delete User',
+    'checkin_and_delete'  	    => 'Нэвтрэх ба хэрэглэгч устгах',
     'delete'  	                => 'Устгах',
     'edit'    	                => 'Засах',
     'restore' 	                => 'Сэргээх',

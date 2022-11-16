@@ -1,13 +1,14 @@
 <?php
 
+
 class ComponentsCest
 {
     public function _before(FunctionalTester $I)
     {
-        $I->amOnPage('/login');
-        $I->fillField('username', 'admin');
-        $I->fillField('password', 'password');
-        $I->click('Login');
+         $I->amOnPage('/login');
+         $I->fillField('username', 'admin');
+         $I->fillField('password', 'password');
+         $I->click('Login');
     }
 
     // tests
@@ -22,7 +23,7 @@ class ComponentsCest
 
     public function failsEmptyValidation(FunctionalTester $I)
     {
-        $I->wantTo('Test Validation Fails with blank elements');
+        $I->wantTo("Test Validation Fails with blank elements");
         $I->amOnPage(route('components.create'));
         $I->click('Save');
         $I->seeElement('.alert-danger');
@@ -33,7 +34,7 @@ class ComponentsCest
 
     public function failsShortValidation(FunctionalTester $I)
     {
-        $I->wantTo('Test Validation Fails with short name');
+        $I->wantTo("Test Validation Fails with short name");
         $I->amOnPage(route('components.create'));
         $I->fillField('name', 't2');
         $I->fillField('qty', '-15');
@@ -46,9 +47,9 @@ class ComponentsCest
 
     public function passesCorrectValidation(FunctionalTester $I)
     {
-        $component = \App\Models\Component::factory()->ramCrucial4()->make([
+        $component = factory(App\Models\Component::class)->states('ram-crucial4')->make([
             'name' => 'Test Component',
-            'serial' => '3523-235325-1350235',
+            'serial' => '3523-235325-1350235'
         ]);
         $values = [
             'category_id'       => $component->category_id,
@@ -62,14 +63,13 @@ class ComponentsCest
             'qty'               => $component->qty,
             'serial'            => $component->serial,
         ];
-        $I->wantTo('Test Validation Succeeds');
+        $I->wantTo("Test Validation Succeeds");
         $I->amOnPage(route('components.create'));
         $I->submitForm('form#create-form', $values);
         $I->seeRecord('components', $values);
         $I->dontSee('&lt;span class=&quot;');
         $I->seeElement('.alert-success');
     }
-
     public function allowsDelete(FunctionalTester $I)
     {
         $I->wantTo('Ensure I can delete a component');

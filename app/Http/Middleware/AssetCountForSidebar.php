@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Asset;
 use Auth;
+use App\Models\Asset;
 use Closure;
 
 class AssetCountForSidebar
@@ -17,7 +17,8 @@ class AssetCountForSidebar
      */
     public function handle($request, Closure $next)
     {
-        try {
+        try
+        {
             $total_rtd_sidebar = Asset::RTD()->count();
             view()->share('total_rtd_sidebar', $total_rtd_sidebar);
         } catch (\Exception $e) {

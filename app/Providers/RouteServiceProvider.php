@@ -2,14 +2,20 @@
 
 namespace App\Providers;
 
-use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
+    /**
+     * This namespace is applied to your controller routes.
+     *
+     * In addition, it is set as the URL generator's root namespace.
+     *
+     * @var string
+     */
+    protected $namespace = 'App\Http\Controllers';
+
     /**
      * Define your route model bindings, pattern filters, etc.
      *
@@ -17,15 +23,23 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->configureRateLimiting();
+        //
 
-        $this->routes(function () {
-            $this->mapApiRoutes();
+        parent::boot();
+    }
 
-            $this->mapWebRoutes();
+    /**
+     * Define the routes for the application.
+     *
+     * @return void
+     */
+    public function map()
+    {
+        $this->mapApiRoutes();
 
-            require base_path('routes/scim.php');
-        });
+        $this->mapWebRoutes();
+
+        //
     }
 
     /**
@@ -70,27 +84,5 @@ class RouteServiceProvider extends ServiceProvider
         ], function ($router) {
             require base_path('routes/api.php');
         });
-    }
-
-    /**
-     * Configure the rate limiters for the application.
-     *
-     * https://laravel.com/docs/8.x/routing#rate-limiting
-     *
-     * @return void
-     */
-    protected function configureRateLimiting()
-    {
-
-        // Rate limiter for API calls
-        RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(config('app.api_throttle_per_minute'))->by(optional($request->user())->id ?: $request->ip());
-        });
-
-        // Rate limiter for forgotten password requests
-        RateLimiter::for('forgotten_password', function (Request $request) {
-            return Limit::perMinute(config('auth.password_reset.max_attempts_per_min'))->by(optional($request->user())->id ?: $request->ip());
-        });
-
     }
 }

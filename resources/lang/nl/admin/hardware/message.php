@@ -17,7 +17,6 @@ return [
         'error'   			=> 'Asset is niet gewijzigd, probeer het opnieuw',
         'success' 			=> 'Asset is succesvol bijgewerkt.',
         'nothing_updated'	=>  'Geen veld is geselecteerd, er is dus niks gewijzigd.',
-        'no_assets_selected'  =>  'Er zijn geen assets geselecteerd, er is dus niets bijgewerkt.',
     ],
 
     'restore' => [

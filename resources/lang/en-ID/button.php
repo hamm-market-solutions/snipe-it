@@ -4,7 +4,7 @@ return [
     'actions' 	                => 'Tindakan',
     'add'    	                => 'Tambah Baru',
     'cancel'                    => 'Batal',
-    'checkin_and_delete'  	    => 'Checkin All / Delete User',
+    'checkin_and_delete'  	    => 'Periksa dan hapus pengguna',
     'delete'  	                => 'Hapus',
     'edit'    	                => 'Sunting',
     'restore' 	                => 'Kembalikan',

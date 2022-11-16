@@ -16,7 +16,6 @@ return [
         'error'   			=> 'Īpašums netika atjaunināts, lūdzu, mēģiniet vēlreiz',
         'success' 			=> 'Īpašums ir veiksmīgi atjaunināts.',
         'nothing_updated'	=>  'Lauki nav atlasīti, tāpēc nekas netika atjaunināts.',
-        'no_assets_selected'  =>  'No assets were selected, so nothing was updated.',
     ],
 
     'restore' => [

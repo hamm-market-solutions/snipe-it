@@ -16,13 +16,15 @@ class AccessoryObserver
      */
     public function updated(Accessory $accessory)
     {
+
         $logAction = new Actionlog();
         $logAction->item_type = Accessory::class;
         $logAction->item_id = $accessory->id;
-        $logAction->created_at = date('Y-m-d H:i:s');
+        $logAction->created_at =  date("Y-m-d H:i:s");
         $logAction->user_id = Auth::id();
         $logAction->logaction('update');
     }
+
 
     /**
      * Listen to the Accessory created event when
@@ -36,9 +38,10 @@ class AccessoryObserver
         $logAction = new Actionlog();
         $logAction->item_type = Accessory::class;
         $logAction->item_id = $accessory->id;
-        $logAction->created_at = date('Y-m-d H:i:s');
+        $logAction->created_at =  date("Y-m-d H:i:s");
         $logAction->user_id = Auth::id();
         $logAction->logaction('create');
+
     }
 
     /**
@@ -52,7 +55,7 @@ class AccessoryObserver
         $logAction = new Actionlog();
         $logAction->item_type = Accessory::class;
         $logAction->item_id = $accessory->id;
-        $logAction->created_at = date('Y-m-d H:i:s');
+        $logAction->created_at =  date("Y-m-d H:i:s");
         $logAction->user_id = Auth::id();
         $logAction->logaction('delete');
     }

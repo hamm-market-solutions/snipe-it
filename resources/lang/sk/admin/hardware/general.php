@@ -6,7 +6,6 @@ return [
     'archived'  				=> 'Archivované',
     'asset'  					=> 'Majetok',
     'bulk_checkout'             => 'Vyskladniť majetky',
-    'bulk_checkin'              => 'Checkin Assets',
     'checkin'  					=> 'Prevziať majetok',
     'checkout'  				=> 'Vyskladniť majetok',
     'clone'  					=> 'Duplikovať majetok',

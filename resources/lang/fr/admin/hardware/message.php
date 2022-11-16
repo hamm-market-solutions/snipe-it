@@ -5,7 +5,7 @@ return [
     'undeployable' 		=> '<strong>Attention: </strong> Ce bien a été marqué non déployable.
                         Si ce statut a changé, veuillez l\'actualiser.',
     'does_not_exist' 	=> 'Ce bien n\'existe pas.',
-    'does_not_exist_or_not_requestable' => 'Cet actif n\'existe pas ou ne peut pas être réquisitionné.',
+    'does_not_exist_or_not_requestable' => 'That asset does not exist or is not requestable.',
     'assoc_users'	 	=> 'Ce bien est marqué sorti par un utilisateur et ne peut être supprimé. Veuillez d\'abord cliquer sur Retour de Biens, et réessayer.',
 
     'create' => [
@@ -17,7 +17,6 @@ return [
         'error'   			=> 'Ce bien n\'a pas été actualisé, veuillez réessayer',
         'success' 			=> 'Bien actualisé correctement.',
         'nothing_updated'	=>  'Aucun champ n\'a été sélectionné, rien n\'a été actualisé.',
-        'no_assets_selected'  =>  'Aucune ressource n\'a été sélectionnée, rien n\'a donc été mis à jour.',
     ],
 
     'restore' => [

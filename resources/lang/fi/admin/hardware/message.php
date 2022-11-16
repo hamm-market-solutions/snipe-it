@@ -17,7 +17,6 @@ return [
         'error'   			=> 'Laitetta ei päivitetty, yritä uudelleen',
         'success' 			=> 'Laite päivitetty onnistuneesti.',
         'nothing_updated'	=>  'Mitään kenttiä ei valittu, joten mitään ei päivitetty.',
-        'no_assets_selected'  =>  'No assets were selected, so nothing was updated.',
     ],
 
     'restore' => [

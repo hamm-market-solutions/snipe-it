@@ -17,7 +17,6 @@ return [
         'error'   			=> 'Asset wurde nicht aktualisiert. Bitte versuchen Sie es erneut',
         'success' 			=> 'Asset wurde erfolgreich aktualisiert.',
         'nothing_updated'	=>  'Es wurden keine Felder ausgewählt, somit wurde auch nichts aktualisiert.',
-        'no_assets_selected'  =>  'Es wurden keine Assets ausgewählt, somit wurde auch nichts aktualisiert.',
     ],
 
     'restore' => [
@@ -64,7 +63,7 @@ return [
         'success' 		=> 'Asset wurde erfolgreich herausgegeben.',
         'user_does_not_exist' => 'Dieser Benutzer existiert nicht. Bitte versuchen Sie es erneut.',
         'not_available' => 'Dieses Asset kann nicht herausgegeben werden!',
-        'no_assets_selected' => 'Sie müssen mindestens ein Asset aus der Liste auswählen',
+        'no_assets_selected' => 'Mind. 1 Eintrag muss ausgewählt werden',
     ],
 
     'checkin' => [
@@ -77,8 +76,8 @@ return [
 
     'requests' => [
         'error'   		=> 'Das Asset wurde nicht angefordert, bitte versuchen Sie es erneut',
-        'success' 		=> 'Gegenstand erfolgreich angefordert.',
-        'canceled'      => 'Herausgeben erfolgreich abgebrochen',
+        'success' 		=> 'Asset erfolgreich angefordert.',
+        'canceled'      => 'Herausgabe erfolgreich abgebrochen',
     ],
 
 ];

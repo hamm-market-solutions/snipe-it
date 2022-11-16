@@ -23,9 +23,11 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-body">
-
-                    @include('partials.asset-bulk-actions')
-
+                    {{ Form::open([
+                      'method' => 'POST',
+                      'route' => ['hardware/bulkedit'],
+                      'class' => 'form-inline',
+                       'id' => 'bulkForm']) }}
                     <div class="row">
                         <div class="col-md-12">
 
@@ -38,15 +40,12 @@
                                     data-search="true"
                                     data-side-pagination="server"
                                     data-show-columns="true"
-                                    data-show-fullscreen="true"
                                     data-show-export="true"
                                     data-show-footer="true"
                                     data-show-refresh="true"
                                     data-sort-order="asc"
                                     data-sort-name="name"
-                                    data-toolbar="#assetsBulkEditToolbar"
-                                    data-bulk-button-id="#bulkAssetEditButton"
-                                    data-bulk-form-id="#assetsBulkForm"
+                                    data-toolbar="#toolbar"
                                     id="assetsAuditListingTable"
                                     class="table table-striped snipe-table"
                                     data-url="{{ route('api.asset.to-audit', ['audit' => 'due']) }}"

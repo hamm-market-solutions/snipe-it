@@ -6,7 +6,6 @@ return [
     'archived'  				=> 'Archived',
     'asset'  					=> 'Sócmhainn',
     'bulk_checkout'             => 'Checkout Assets',
-    'bulk_checkin'              => 'Checkin Assets',
     'checkin'  					=> 'Sócmhainn Checkin',
     'checkout'  				=> 'Seiceáil Seiceáil',
     'clone'  					=> 'Sócmhainn Clón',

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -43,10 +42,10 @@ class CheckoutRequest extends Model
 
     public function name()
     {
-        if ($this->itemType() == 'asset') {
+        if ($this->itemType() == "asset") {
             return $this->itemRequested()->present()->name();
         }
-
         return $this->itemRequested()->name;
+
     }
 }

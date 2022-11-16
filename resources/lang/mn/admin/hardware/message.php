@@ -16,7 +16,6 @@ return [
         'error'   			=> 'Хөрөнгийн шинэчлэлт хийгдээгүй тул дахин оролдоно уу',
         'success' 			=> 'Акт амжилттай шинэчлэгдсэн.',
         'nothing_updated'	=>  'Ямар ч талбар сонгогдоогүй тул шинэчлэгдээгүй байна.',
-        'no_assets_selected'  =>  'No assets were selected, so nothing was updated.',
     ],
 
     'restore' => [

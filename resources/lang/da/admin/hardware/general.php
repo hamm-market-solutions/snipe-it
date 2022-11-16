@@ -6,7 +6,6 @@ return [
     'archived'  				=> 'arkiverede',
     'asset'  					=> 'Asset',
     'bulk_checkout'             => 'Udtjek aktiv',
-    'bulk_checkin'              => 'Checkin Assets',
     'checkin'  					=> 'Checkin Asset',
     'checkout'  				=> 'Checkout Asset',
     'clone'  					=> 'Klonaktiver',

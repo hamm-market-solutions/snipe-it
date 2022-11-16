@@ -16,13 +16,14 @@ class ApiAssetsCest
     {
         $this->faker = \Faker\Factory::create();
         $this->user = \App\Models\User::find(1);
-        Setting::getSettings()->time_display_format = 'H:i';
+        Setting::getSettings()->time_display_format = "H:i";
         $I->amBearerAuthenticated($I->getToken($this->user));
     }
 
     /** @test */
     public function indexAssets(ApiTester $I)
     {
+
         $I->wantTo('Get a list of assets');
 
         // call
@@ -46,9 +47,9 @@ class ApiAssetsCest
     {
         $I->wantTo('Create a new asset');
 
-        $temp_asset = \App\Models\Asset::factory()->laptopMbp()->make([
-            'asset_tag' => 'Test Asset Tag',
-            'company_id' => 2,
+        $temp_asset = factory(\App\Models\Asset::class)->states('laptop-mbp')->make([
+            'asset_tag' => "Test Asset Tag",
+            'company_id' => 2
         ]);
 
         // setup
@@ -81,15 +82,15 @@ class ApiAssetsCest
         $I->wantTo('Update an asset with PATCH');
 
         // create
-        $asset = \App\Models\Asset::factory()->laptopMbp()->create([
+        $asset = factory(\App\Models\Asset::class)->states('laptop-mbp')->create([
             'company_id' => 2,
-            'rtd_location_id' => 3,
+            'rtd_location_id' => 3
         ]);
         $I->assertInstanceOf(\App\Models\Asset::class, $asset);
 
-        $temp_asset = \App\Models\Asset::factory()->laptopAir()->make([
+        $temp_asset = factory(\App\Models\Asset::class)->states('laptop-air')->make([
             'company_id' => 3,
-            'name' => 'updated asset name',
+            'name' => "updated asset name",
             'rtd_location_id' => 1,
         ]);
 
@@ -114,7 +115,7 @@ class ApiAssetsCest
         $I->assertNotEquals($asset->name, $data['name']);
 
         // update
-        $I->sendPATCH('/hardware/'.$asset->id, $data);
+        $I->sendPATCH('/hardware/' . $asset->id, $data);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(200);
 
@@ -132,7 +133,7 @@ class ApiAssetsCest
         $temp_asset->location_id = $response->payload->rtd_location_id;
 
         // verify
-        $I->sendGET('/hardware/'.$asset->id);
+        $I->sendGET('/hardware/' . $asset->id);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson((new AssetsTransformer)->transformAsset($temp_asset));
@@ -144,11 +145,11 @@ class ApiAssetsCest
         $I->wantTo('Delete an asset');
 
         // create
-        $asset = \App\Models\Asset::factory()->laptopMbp()->create();
+        $asset = factory(\App\Models\Asset::class)->states('laptop-mbp')->create();
         $I->assertInstanceOf(\App\Models\Asset::class, $asset);
 
         // delete
-        $I->sendDELETE('/hardware/'.$asset->id);
+        $I->sendDELETE('/hardware/' . $asset->id);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(200);
 
@@ -157,7 +158,7 @@ class ApiAssetsCest
         $I->assertEquals(trans('admin/hardware/message.delete.success'), $response->messages);
 
         // verify, expect a 200
-        $I->sendGET('/hardware/'.$asset->id);
+        $I->sendGET('/hardware/' . $asset->id);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 

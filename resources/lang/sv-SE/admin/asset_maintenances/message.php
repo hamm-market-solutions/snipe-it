@@ -12,8 +12,8 @@
             'success' => 'Underhåll av tillgången skapades.',
         ],
         'edit'                       => [
-            'error'   => 'Underhåll av tillgång redigerades inte, försök igen.',
-            'success' => 'Underhåll av tillgång redigerades.',
+            'error'   => 'Underhåll av tillgång var inte redigerat, försök igen.',
+            'success' => 'Underhåll av tillgång ändrades framgångsrikt.',
         ],
         'asset_maintenance_incomplete' => 'Inte klar ännu',
         'warranty'                     => 'Garanti',

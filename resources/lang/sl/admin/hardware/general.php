@@ -6,7 +6,6 @@ return [
     'archived'  				=> 'Arhivirano',
     'asset'  					=> 'Sredstev',
     'bulk_checkout'             => 'Izdaja sredstev',
-    'bulk_checkin'              => 'Checkin Assets',
     'checkin'  					=> 'Sprejem sredstev',
     'checkout'  				=> 'Izdaja sredstev',
     'clone'  					=> 'Klonska sredstvo',

@@ -1,7 +1,6 @@
 <?php
-
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class AddPhysicalToAssets extends Migration
 {
@@ -28,4 +27,5 @@ class AddPhysicalToAssets extends Migration
     {
         $table->dropColumn('physical');
     }
+
 }

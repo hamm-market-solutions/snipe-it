@@ -7,5 +7,5 @@ return array(
     'item_no'                           => 'Artikel Nr.',
     'remaining' 			            => 'Verbleibend',
     'total' 			                => 'Gesamt',
-    'update'                            => 'Verbrauchsmaterial aktualisieren',
+    'update'                            => 'Verbrauchsmaterial bearbeiten',
 );

@@ -1,50 +1,31 @@
 <?php
 
-use App\Http\Controllers\Accessories;
-use Illuminate\Support\Facades\Route;
-
 /*
 * Accessories
  */
-Route::group(['prefix' => 'accessories', 'middleware' => ['auth']], function () {
+Route::group([ 'prefix' => 'accessories', 'middleware' => ['auth']], function () {
+
     Route::get(
         '{accessoryID}/checkout',
-        [Accessories\AccessoryCheckoutController::class, 'create']
-    )->name('accessories.checkout.show');
-
+        [ 'as' => 'checkout/accessory', 'uses' => 'Accessories\AccessoryCheckoutController@create' ]
+    );
     Route::post(
         '{accessoryID}/checkout',
-        [Accessories\AccessoryCheckoutController::class, 'store']
-    )->name('accessories.checkout.store');
+        [ 'as' => 'checkout/accessory', 'uses' => 'Accessories\AccessoryCheckoutController@store' ]
+    );
 
     Route::get(
         '{accessoryID}/checkin/{backto?}',
-        [Accessories\AccessoryCheckinController::class, 'create']
-    )->name('accessories.checkin.show');
-
+        [ 'as' => 'checkin/accessory', 'uses' => 'Accessories\AccessoryCheckinController@create' ]
+    );
     Route::post(
         '{accessoryID}/checkin/{backto?}',
-        [Accessories\AccessoryCheckinController::class, 'store']
-    )->name('accessories.checkin.store');
-
-    Route::post(
-        '{accessoryId}/upload',
-        [Accessories\AccessoriesFilesController::class, 'store']
-    )->name('upload/accessory');
-
-    Route::delete(
-        '{accessoryId}/deletefile/{fileId}',
-        [Accessories\AccessoriesFilesController::class, 'destroy']
-    )->name('delete/accessoryfile');
-
-    Route::get(
-        '{accessoryId}/showfile/{fileId}/{download?}',
-        [Accessories\AccessoriesFilesController::class, 'show']
-    )->name('show.accessoryfile');
+        [ 'as' => 'checkin/accessory', 'uses' => 'Accessories\AccessoryCheckinController@store' ]
+    );
 
 });
 
-Route::resource('accessories', Accessories\AccessoriesController::class, [
+Route::resource('accessories', 'Accessories\AccessoriesController', [
     'middleware' => ['auth'],
-    'parameters' => ['accessory' => 'accessory_id'],
+    'parameters' => ['accessory' => 'accessory_id']
 ]);

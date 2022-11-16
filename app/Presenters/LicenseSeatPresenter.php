@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 /**
  * Class LicensePresenter
+ * @package App\Presenters
  */
 class LicenseSeatPresenter extends Presenter
 {

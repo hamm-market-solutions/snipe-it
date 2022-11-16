@@ -55,12 +55,14 @@ class RequestAssetCancelation extends Notification
      */
     public function via()
     {
+
         $notifyBy = [];
 
-        if (Setting::getSettings()->slack_endpoint != '') {
+        if (Setting::getSettings()->slack_endpoint!='') {
             \Log::debug('use slack');
             $notifyBy[] = 'slack';
         }
+
 
         $notifyBy[] = 'mail';
 
@@ -73,19 +75,19 @@ class RequestAssetCancelation extends Notification
         $item = $this->item;
         $note = $this->note;
         $qty = $this->item_quantity;
-        $botname = ($this->settings->slack_botname) ? $this->settings->slack_botname : 'Snipe-Bot';
+        $botname = ($this->settings->slack_botname) ? $this->settings->slack_botname : 'Snipe-Bot' ;
 
         $fields = [
             'QTY' => $qty,
             'Canceled By' => '<'.$target->present()->viewUrl().'|'.$target->present()->fullName().'>',
         ];
 
-        if (($this->expected_checkin) && ($this->expected_checkin != '')) {
+        if (($this->expected_checkin) && ($this->expected_checkin!='')) {
             $fields['Expected Checkin'] = $this->expected_checkin;
         }
 
         return (new SlackMessage)
-            ->content(trans('mail.a_user_canceled'))
+            ->content( trans('mail.a_user_canceled'))
             ->from($botname)
             ->attachment(function ($attachment) use ($item, $note, $fields) {
                 $attachment->title(htmlspecialchars_decode($item->present()->name), $item->present()->viewUrl())
@@ -93,7 +95,6 @@ class RequestAssetCancelation extends Notification
                     ->content($note);
             });
     }
-
     /**
      * Get the mail representation of the notification.
      *
@@ -102,6 +103,7 @@ class RequestAssetCancelation extends Notification
      */
     public function toMail()
     {
+
         $fields = [];
 
         // Check if the item has custom fields associated with it
@@ -123,6 +125,8 @@ class RequestAssetCancelation extends Notification
             ])
             ->subject(trans('Item Request Canceled'));
 
+
         return $message;
     }
+
 }

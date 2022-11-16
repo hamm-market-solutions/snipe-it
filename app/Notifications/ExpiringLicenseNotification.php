@@ -34,8 +34,7 @@ class ExpiringLicenseNotification extends Notification
     public function via()
     {
         $notifyBy = [];
-        $notifyBy[] = 'mail';
-
+        $notifyBy[]='mail';
         return $notifyBy;
     }
 
@@ -47,6 +46,7 @@ class ExpiringLicenseNotification extends Notification
      */
     public function toMail()
     {
+
         $message = (new MailMessage)->markdown('notifications.markdown.report-expiring-licenses',
             [
                 'licenses'  => $this->licenses,
@@ -55,5 +55,8 @@ class ExpiringLicenseNotification extends Notification
             ->subject(trans('mail.Expiring_Licenses_Report'));
 
         return $message;
+
+
     }
+
 }

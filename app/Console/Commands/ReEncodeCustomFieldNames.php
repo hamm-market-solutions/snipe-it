@@ -48,13 +48,15 @@ class ReEncodeCustomFieldNames extends Command
      */
     public function handle()
     {
-        if ($this->confirm('This will regenerate all of the custom field database fieldnames in your database. THIS WILL CHANGE YOUR SCHEMA AND SHOULD NOT BE DONE WITHOUT MAKING A BACKUP FIRST. Do you wish to continue?')) {
+
+        if ($this->confirm('This will regenerate all of the custom field database fieldnames in your database. THIS WILL CHANGE YOUR SCHEMA AND SHOULD NOT BE DONE WITHOUT MAKING A BACKUP FIRST. Do you wish to continue?'))
+        {
 
             /** Get all of the custom fields */
             $fields = CustomField::get();
 
             $asset_columns = \DB::getSchemaBuilder()->getColumnListing('assets');
-            $custom_field_columns = [];
+            $custom_field_columns = array();
 
             /** Loop through the columns on the assets table */
             foreach ($asset_columns as $asset_column) {
@@ -69,55 +71,43 @@ class ReEncodeCustomFieldNames extends Command
                      * Then use that ID as the array key for use comparing the actual assets field name
                      * and the db_column value from the custom fields table.
                      */
-                    $last_part = substr(strrchr($asset_column, '_snipeit_'), 1);
+                    $last_part = substr(strrchr($asset_column, "_snipeit_"), 1);
                     $custom_field_columns[$last_part] = $asset_column;
-
                 }
             }
 
             foreach ($fields as $field) {
-                $this->info($field->name.' ('.$field->id.') column should be '.$field->convertUnicodeDbSlug());
+
+                $this->info($field->name .' ('.$field->id.') column should be '. $field->convertUnicodeDbSlug().'');
 
                 /** The assets table has the column it should have, all is well */
-                if ($field->db_column == $field->convertUnicodeDbSlug() && \Schema::hasColumn('assets', $field->convertUnicodeDbSlug())) {
-                    $this->info('-- ✓ This field exists on the assets table and the value for db_column matches in the custom_fields table.');
+                if (\Schema::hasColumn('assets', $field->convertUnicodeDbSlug()))
+                {
+                    $this->info('-- ✓ This field exists - all good');
 
                 /**
                  * There is a mismatch between the fieldname on the assets table and
                  * what $field->convertUnicodeDbSlug() is *now* expecting.
                  */
                 } else {
+                        $this->warn('-- X Field mismatch: updating... ');
 
-                    if ($field->db_column != $field->convertUnicodeDbSlug()) {
-                        $this->error('-- ✘ Field mismatch: '.$field->name.' value should be '.$field->convertUnicodeDbSlug().' but is '.$field->db_column.' in the custom_fields table');
+                        /** Make sure the custom_field_columns array has the ID */
+                        if (array_key_exists($field->id, $custom_field_columns)) {
 
-                    } else {
-                        $this->error('-- ✘ Field mismatch: '.$field->name.' column should be '.$field->convertUnicodeDbSlug().' but is '.$custom_field_columns[$field->id].' on the assets table.');
+                            /**
+                             * Update the asset schema to the corrected fieldname that will be recognized by the
+                             *  system elsewhere that we use $field->convertUnicodeDbSlug()
+                             */
+                            \Schema::table('assets', function($table) use ($custom_field_columns, $field) {
+                                $table->renameColumn($custom_field_columns[$field->id], $field->convertUnicodeDbSlug());
+                            });
 
-                    }
+                            $this->warn('-- ✓ Field updated from '.$custom_field_columns[$field->id].' to '.$field->convertUnicodeDbSlug());
 
-
-                    /** Make sure the custom_field_columns array has the ID */
-                    if (array_key_exists($field->id, $custom_field_columns)) {
-
-                        /**
-                         * Update the asset schema to the corrected fieldname that will be recognized by the
-                         *  system elsewhere that we use $field->convertUnicodeDbSlug()
-                         */
-                        $this->info('-- ✓ Updating field from '.$field->db_column.' to '.$field->convertUnicodeDbSlug().' in the assets table');
-                        \Schema::table('assets', function ($table) use ($custom_field_columns, $field) {
-                            $table->renameColumn($custom_field_columns[$field->id], $field->convertUnicodeDbSlug());
-                        });
-
-                        $this->info('-- ✓ Updating field from '.$field->db_column.' to '.$field->convertUnicodeDbSlug().' in the custom fields table');
-
-                        $field->db_column = $field->convertUnicodeDbSlug();
-                        $field->save();
-
-
-                    } else {
-                        $this->warn('-- ✘ WARNING: There is no field on the assets table ending in  '.$field->id.'. This may require more in-depth investigation and may mean the schema was altered manually.');
-                    }
+                        } else {
+                            $this->warn('-- X WARNING: There is no field on the assets table ending in  '.$field->id.'. This may require more in-depth investigation and may mean the schema was altered manually.');
+                        }
                 }
 
                 /** Update the db_column property in the custom fields table, just in case it doesn't match the other
@@ -125,7 +115,12 @@ class ReEncodeCustomFieldNames extends Command
                  */
                 $field->db_column = $field->convertUnicodeDbSlug();
                 $field->save();
+
+
             }
+
         }
+
+
     }
 }

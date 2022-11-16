@@ -21,6 +21,7 @@ class ApiCompaniesCest
     /** @test */
     public function indexCompanys(ApiTester $I)
     {
+
         $I->wantTo('Get a list of companies');
 
         // call
@@ -31,7 +32,7 @@ class ApiCompaniesCest
         $response = json_decode($I->grabResponse(), true);
         // dd($response);
         // sample verify
-        $company = App\Models\Company::withCount('assets as assets_count', 'licenses as licenses_count', 'accessories as accessories_count', 'consumables as consumables_count', 'components as components_count', 'users as users_count')
+        $company = App\Models\Company::withCount('assets as assets_count','licenses as licenses_count','accessories as accessories_count','consumables as consumables_count','components as components_count','users as users_count')
             ->orderByDesc('created_at')->take(10)->get()->shuffle()->first();
 
         $I->seeResponseContainsJson($I->removeTimestamps((new CompaniesTransformer)->transformCompany($company)));
@@ -42,8 +43,8 @@ class ApiCompaniesCest
     {
         $I->wantTo('Create a new company');
 
-        $temp_company = \App\Models\Company::factory()->make([
-            'name' => 'Test Company Tag',
+        $temp_company = factory(\App\Models\Company::class)->make([
+            'name' => "Test Company Tag",
         ]);
 
         // setup
@@ -59,20 +60,19 @@ class ApiCompaniesCest
 
     // Put is routed to the same method in the controller
     // DO we actually need to test both?
-
     /** @test */
     public function updateCompanyWithPatch(ApiTester $I, $scenario)
     {
         $I->wantTo('Update an company with PATCH');
 
         // create
-        $company = \App\Models\Company::factory()->create([
+        $company = factory(\App\Models\Company::class)->create([
             'name' => 'Original Company Name',
         ]);
         $I->assertInstanceOf(\App\Models\Company::class, $company);
 
-        $temp_company = \App\Models\Company::factory()->make([
-            'name' => 'updated company name',
+        $temp_company = factory(\App\Models\Company::class)->make([
+            'name' => "updated company name",
         ]);
 
         $data = [
@@ -82,7 +82,7 @@ class ApiCompaniesCest
         $I->assertNotEquals($company->name, $data['name']);
 
         // update
-        $I->sendPATCH('/companies/'.$company->id, $data);
+        $I->sendPATCH('/companies/' . $company->id, $data);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(200);
 
@@ -98,10 +98,11 @@ class ApiCompaniesCest
         $temp_company->id = $company->id;
 
         // verify
-        $I->sendGET('/companies/'.$company->id);
+        $I->sendGET('/companies/' . $company->id);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson((new CompaniesTransformer)->transformCompany($temp_company));
+
     }
 
     /** @test */
@@ -110,13 +111,13 @@ class ApiCompaniesCest
         $I->wantTo('Delete an company');
 
         // create
-        $company = \App\Models\Company::factory()->create([
-            'name' => 'Soon to be deleted',
+        $company = factory(\App\Models\Company::class)->create([
+            'name' => "Soon to be deleted"
         ]);
         $I->assertInstanceOf(\App\Models\Company::class, $company);
 
         // delete
-        $I->sendDELETE('/companies/'.$company->id);
+        $I->sendDELETE('/companies/' . $company->id);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(200);
 
@@ -125,7 +126,7 @@ class ApiCompaniesCest
         $I->assertEquals(trans('admin/companies/message.delete.success'), $response->messages);
 
         // verify, expect a 200
-        $I->sendGET('/companies/'.$company->id);
+        $I->sendGET('/companies/' . $company->id);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
     }

@@ -8,7 +8,8 @@
  | be modified directly.
 */
 
-return [
+
+return array(
 
     /*
     |--------------------------------------------------------------------------
@@ -25,4 +26,4 @@ return [
 
     'driver' =>  env('IMAGE_LIB', 'gd'),
 
-];
+);

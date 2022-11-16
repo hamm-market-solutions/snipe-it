@@ -1,7 +1,7 @@
 <?php
 
 return array(
-    'component_name'                  => 'Componentnaam',
+    'component_name'                  => 'Component Naam',
     'checkin'                             => 'Component inchecken',
     'checkout'                             => 'Component uitchecken',
     'cost'				=> 'Aankoop prijs',

@@ -49,12 +49,6 @@ return array(
 
     ),
 
-    'fieldset_default_value' => array(
-
-        'error' => 'Chyba pri overovaní predvolených hodnôt množiny polí.',
-
-    ),
-
 
 
 

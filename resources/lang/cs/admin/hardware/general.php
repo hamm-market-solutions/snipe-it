@@ -6,7 +6,6 @@ return [
     'archived'  				=> 'Archivováno',
     'asset'  					=> 'Majetek',
     'bulk_checkout'             => 'Vyskladnit majetek',
-    'bulk_checkin'              => 'Checkin Assets',
     'checkin'  					=> 'Převzít majetek',
     'checkout'  				=> 'Pokladní majetek',
     'clone'  					=> 'Klonovat majetek',
@@ -40,5 +39,5 @@ return [
     'error_messages' => 'Error messages:',
     'success_messages' => 'Success messages:',
     'alert_details' => 'Please see below for details.',
-    'custom_export' => 'Uživatelsky definovaný export'
+    'custom_export' => 'Custom Export'
 ];

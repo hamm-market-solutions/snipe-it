@@ -1,146 +1,68 @@
 <?php
 
-use App\Http\Controllers\Users;
-use App\Http\Controllers\Users\UserFilesController;
-use Illuminate\Support\Facades\Route;
+# User Management
+Route::group([ 'prefix' => 'users', 'middleware' => ['auth']], function () {
 
-// User Management
-
-Route::group(['prefix' => 'users', 'middleware' => ['auth']], function () {
-
-    Route::get(
-        'ldap',
-        [
-            Users\LDAPImportController::class, 
-            'create'
-        ]
-    )->name('ldap/user');
-
-    Route::post(
-        'ldap',
-        [
-            Users\LDAPImportController::class, 
-            'store'
-        ]
-    );
-
-    Route::get(
-        'export',
-        [
-            Users\UsersController::class, 
-            'getExportUserCsv'
-        ]
-    )->name('users.export');
-
-    Route::get(
-        '{userId}/clone',
-        [
-            Users\UsersController::class, 
-            'getClone'
-        ]
-    )->name('users.clone.show');
-
-    Route::post(
-        '{userId}/clone',
-        [
-            Users\UsersController::class, 
-            'postCreate'
-        ]
-    )->name('users.clone.store');
-
-    Route::post(
-        '{userId}/restore',
-        [
-            Users\UsersController::class, 
-            'getRestore'
-        ]
-    )->name('users.restore.store');
-
-    Route::get(
-        '{userId}/unsuspend',
-        [
-            Users\UsersController::class, 
-            'getUnsuspend'
-        ]
-    )->name('unsuspend/user');
-
-    Route::post(
-        '{userId}/upload',
-        [
-            Users\UserFilesController::class, 
-            'store'
-        ]
-    )->name('upload/user');
-
+    Route::get('ldap', ['as' => 'ldap/user', 'uses' => 'Users\LDAPImportController@create' ]);
+    Route::post('ldap', 'Users\LDAPImportController@store');
+    Route::get('export', [ 'as' => 'users.export', 'uses' => 'Users\UsersController@getExportUserCsv' ]);
+    Route::get('{userId}/clone', [ 'as' => 'clone/user', 'uses' => 'Users\UsersController@getClone' ]);
+    Route::post('{userId}/clone', [ 'uses' => 'Users\UsersController@postCreate' ]);
+    Route::post('{userId}/restore', [ 'as' => 'restore/user', 'uses' => 'Users\UsersController@getRestore' ]);
+    Route::get('{userId}/unsuspend', [ 'as' => 'unsuspend/user', 'uses' => 'Users\UsersController@getUnsuspend' ]);
+    Route::post('{userId}/upload', [ 'as' => 'upload/user', 'uses' => 'Users\UserFilesController@store' ]);
     Route::delete(
         '{userId}/deletefile/{fileId}',
-        [
-            Users\UserFilesController::class, 
-            'destroy'
-        ]
-    )->name('userfile.destroy');
+        [ 'as' => 'userfile.destroy', 'uses' => 'Users\UserFilesController@destroy' ]
+    );
 
-    Route::get(
-        '{userId}/showfile/{fileId}',
-        [
-            Users\UserFilesController::class, 
-            'show'
-        ]
-    )->name('show/userfile');
 
     Route::post(
         '{userId}/password',
         [
-            Users\UsersController::class, 
-            'sendPasswordReset'
+            'as'   => 'users.password',
+            'uses' => 'Users\UsersController@sendPasswordReset',
         ]
-    )->name('users.password');
+    );
+    
 
     Route::get(
         '{userId}/print',
-        [
-            Users\UsersController::class, 
-            'printInventory'
-        ]
-    )->name('users.print');
+        [ 'as' => 'users.print', 'uses' => 'Users\UsersController@printInventory' ]
+    );
 
-    Route::post(
-        '{userId}/email',
-        [
-            Users\UsersController::class,
-            'emailAssetList'
-        ]
-    )->name('users.email');
+
+    Route::get(
+        '{userId}/showfile/{fileId}',
+        [ 'as' => 'show/userfile', 'uses' => 'Users\UserFilesController@show' ]
+    );
 
     Route::post(
         'bulkedit',
         [
-            Users\BulkUsersController::class, 
-            'edit'
+            'as'   => 'users/bulkedit',
+            'uses' => 'Users\BulkUsersController@edit',
         ]
-    )->name('users/bulkedit');
-
-
+    );
     Route::post(
         'bulksave',
         [
-            Users\BulkUsersController::class, 
-            'destroy'
+            'as'   => 'users/bulksave',
+            'uses' => 'Users\BulkUsersController@destroy',
         ]
-    )->name('users/bulksave');
-
+    );
     Route::post(
         'bulkeditsave',
         [
-            Users\BulkUsersController::class, 
-            'update'
+            'as'   => 'users/bulkeditsave',
+            'uses' => 'Users\BulkUsersController@update',
         ]
-    )->name('users/bulkeditsave');
+    );
 
 
 });
 
-Route::resource('users', Users\UsersController::class, [
+Route::resource('users', 'Users\UsersController', [
     'middleware' => ['auth'],
-    'parameters' => ['user' => 'user_id'],
+    'parameters' => ['user' => 'user_id']
 ]);

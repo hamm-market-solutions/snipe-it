@@ -33,8 +33,7 @@ class ExpiringAssetsNotification extends Notification
     public function via()
     {
         $notifyBy = [];
-        $notifyBy[] = 'mail';
-
+        $notifyBy[]='mail';
         return $notifyBy;
     }
 
@@ -46,6 +45,7 @@ class ExpiringAssetsNotification extends Notification
      */
     public function toMail()
     {
+
         $message = (new MailMessage)->markdown('notifications.markdown.report-expiring-assets',
             [
                 'assets'  => $this->assets,
@@ -54,5 +54,8 @@ class ExpiringAssetsNotification extends Notification
             ->subject(trans('mail.Expiring_Assets_Report'));
 
         return $message;
+
+
     }
+
 }

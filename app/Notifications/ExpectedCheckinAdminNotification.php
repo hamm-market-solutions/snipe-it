@@ -32,8 +32,7 @@ class ExpectedCheckinAdminNotification extends Notification
     public function via()
     {
         $notifyBy = [];
-        $notifyBy[] = 'mail';
-
+        $notifyBy[]='mail';
         return $notifyBy;
     }
 
@@ -44,6 +43,7 @@ class ExpectedCheckinAdminNotification extends Notification
      */
     public function toMail()
     {
+
         $message = (new MailMessage)->markdown('notifications.markdown.report-expected-checkins',
             [
                 'assets'  => $this->assets,
@@ -51,5 +51,8 @@ class ExpectedCheckinAdminNotification extends Notification
             ->subject(trans('mail.Expected_Checkin_Report'));
 
         return $message;
+
+
     }
+
 }

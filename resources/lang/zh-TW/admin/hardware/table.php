@@ -22,9 +22,9 @@ return [
     'image'		    => '設備圖片',
     'days_without_acceptance' => '過期天數',
     'monthly_depreciation' => '每月折舊',
-    'assigned_to'    => '分配給',
+    'assigned_to'    => 'Assigned To',
     'requesting_user' => 'Requesting User',
     'requested_date' => 'Requested Date',
-    'changed'       => '已更改',
-    'icon' => '圖示',
+    'changed'       => 'Changed',
+    'icon' => 'Icon',
 ];

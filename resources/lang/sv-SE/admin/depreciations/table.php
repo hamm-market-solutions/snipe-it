@@ -6,6 +6,6 @@ return [
     'months'   => 'Månader',
     'term'   => 'Löptid',
     'title'      => 'Namn ',
-    'depreciation_min' => 'Nuvarande värde',
+    'depreciation_min' => 'Floor Value',
 
 ];

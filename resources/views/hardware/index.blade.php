@@ -43,9 +43,9 @@
 
 @section('header_right')
   <a href="{{ route('reports/custom') }}" style="margin-right: 5px;" class="btn btn-default">
-    {{ trans('admin/hardware/general.custom_export') }}</a>
+    Custom Export</a>
   @can('create', \App\Models\Asset::class)
-  <a href="{{ route('hardware.create') }}" accesskey="n" class="btn btn-primary pull-right"></i> {{ trans('general.create') }}</a>
+  <a href="{{ route('hardware.create') }}" class="btn btn-primary pull-right"></i> {{ trans('general.create') }}</a>
   @endcan
 
 @stop
@@ -62,10 +62,27 @@
             <div class="col-md-12">
               
               @if (Request::get('status')!='Deleted')
-
-
-
-                @include('partials.asset-bulk-actions')
+              
+                 
+                    
+                    <div id="toolbar">
+                      {{ Form::open([
+                        'method' => 'POST',
+                        'route' => ['hardware/bulkedit'],
+                        'class' => 'form-inline',
+                        'id' => 'bulkForm']) }}
+                        
+                     
+                      <label for="bulk_actions"><span class="sr-only">Bulk Actions</span></label>
+                      <select name="bulk_actions" class="form-control select2" aria-label="bulk_actions">
+                        <option value="edit">{{ trans('button.edit') }}</option>
+                        <option value="delete">{{ trans('button.delete') }}</option>
+                        <option value="labels">{{ trans_choice('button.generate_labels', 2) }}</option>
+                      </select>
+                      
+                      <button class="btn btn-primary" id="bulkEdit" disabled>Go</button>
+                      {{ Form::close() }}   
+                    </div>
                    
               @endif
 
@@ -84,10 +101,7 @@
                 data-show-refresh="true"
                 data-sort-order="asc"
                 data-sort-name="name"
-                data-show-fullscreen="true"
-                data-toolbar="#assetsBulkEditToolbar"
-                data-bulk-button-id="#bulkAssetEditButton"
-                data-bulk-form-id="#assetsBulkForm"
+                data-toolbar="#toolbar"
                 id="assetsListingTable"
                 class="table table-striped snipe-table"
                 data-url="{{ route('api.assets.index',

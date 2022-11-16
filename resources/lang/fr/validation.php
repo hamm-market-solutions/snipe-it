@@ -64,7 +64,7 @@ return [
         'string'  => 'L\'attribut ":attribute" doit faire au moins :min caractères.',
         'array'   => 'L\'attribut: doit avoir au moins: éléments min.',
     ],
-    'starts_with'          => 'L\'attribut :attribute doit commencer par l\'une des valeurs suivantes : :values.',
+    'starts_with'          => 'The :attribute must start with one of the following: :values.',
     'not_in'               => 'L\'attribut ":attribute" est invalide.',
     'numeric'              => 'L\'attribut ":attribute" doit être un nombre.',
     'present'              => 'Le champ d\'attribut: doit être présent.',
@@ -91,15 +91,6 @@ return [
     'url'                  => 'Le format de cet-te :attribute est invalide.',
     'unique_undeleted'     => ':attribute doit être unique.',
     'non_circular'         => 'Le champ :attribute ne doit pas créer de référence circulaire.',
-    'disallow_same_pwd_as_user_fields' => 'Le mot de passe ne peut être le nom d\'utilisateur.',
-    'letters'              => 'Le mot de passe doit contenir au moins une lettre.',
-    'numbers'              => 'Le mot de passe doit contenir au moins un chiffre.',
-    'case_diff'            => 'Le mot de passe doit contenir au moins une minuscule et une majuscule.',
-    'symbols'              => 'Le mot de passe doit contenir au moins un caractère spécial.',
-    'gte'                  => [
-        'numeric'          => 'La valeur ne peut pas être négative'
-    ],
-
 
     /*
     |--------------------------------------------------------------------------

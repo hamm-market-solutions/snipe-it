@@ -4,7 +4,7 @@ return [
     'actions' 	                => 'Veiksmai',
     'add'    	                => 'Pridėti naują',
     'cancel'                    => 'Atšaukti',
-    'checkin_and_delete'  	    => 'Checkin All / Delete User',
+    'checkin_and_delete'  	    => 'Registruokitės ir ištrinkite naudotoją',
     'delete'  	                => 'Ištrinti',
     'edit'    	                => 'Keisti',
     'restore' 	                => 'Atstatyti',

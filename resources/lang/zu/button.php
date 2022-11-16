@@ -4,7 +4,7 @@ return [
     'actions' 	                => 'Izenzo',
     'add'    	                => 'Engeza okusha',
     'cancel'                    => 'Khansela',
-    'checkin_and_delete'  	    => 'Checkin All / Delete User',
+    'checkin_and_delete'  	    => 'Hlola & Susa Umsebenzisi',
     'delete'  	                => 'Susa',
     'edit'    	                => 'Hlela',
     'restore' 	                => 'Buyisela',

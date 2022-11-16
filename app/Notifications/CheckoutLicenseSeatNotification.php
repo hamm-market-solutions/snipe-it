@@ -43,7 +43,7 @@ class CheckoutLicenseSeatNotification extends Notification
     {
         $notifyBy = [];
 
-        if (Setting::getSettings()->slack_endpoint != '') {
+        if (Setting::getSettings()->slack_endpoint!='') {
             $notifyBy[] = 'slack';
         }
 
@@ -73,6 +73,7 @@ class CheckoutLicenseSeatNotification extends Notification
             if ($this->item->checkin_email()) {
                 $notifyBy[1] = 'mail';
             }
+
         }
 
         return $notifyBy;
@@ -84,7 +85,7 @@ class CheckoutLicenseSeatNotification extends Notification
         $admin = $this->admin;
         $item = $this->item;
         $note = $this->note;
-        $botname = ($this->settings->slack_botname) ? $this->settings->slack_botname : 'Snipe-Bot';
+        $botname = ($this->settings->slack_botname) ? $this->settings->slack_botname : 'Snipe-Bot' ;
 
         $fields = [
             'To' => '<'.$target->present()->viewUrl().'|'.$target->present()->fullName().'>',
@@ -100,7 +101,6 @@ class CheckoutLicenseSeatNotification extends Notification
                     ->content($note);
             });
     }
-
     /**
      * Get the mail representation of the notification.
      *
@@ -108,7 +108,8 @@ class CheckoutLicenseSeatNotification extends Notification
      */
     public function toMail()
     {
-        $eula = method_exists($this->item, 'getEula') ? $this->item->getEula() : '';
+
+        $eula =  method_exists($this->item, 'getEula') ? $this->item->getEula() : '';
         $req_accept = method_exists($this->item, 'requireAcceptance') ? $this->item->requireAcceptance() : 0;
 
         $accept_url = is_null($this->acceptance) ? null : route('account.accept.item', $this->acceptance);
@@ -124,5 +125,7 @@ class CheckoutLicenseSeatNotification extends Notification
                 'accept_url'    => $accept_url,
             ])
             ->subject(trans('mail.Confirm_license_delivery'));
+
     }
+
 }

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class AddImagesUploadsToLocationsManufacturersEtc extends Migration
 {
@@ -34,6 +34,7 @@ class AddImagesUploadsToLocationsManufacturersEtc extends Migration
         Schema::table('manufacturers', function (Blueprint $table) {
             $table->string('image')->nullable()->default(null);
         });
+
     }
 
     /**
@@ -64,5 +65,7 @@ class AddImagesUploadsToLocationsManufacturersEtc extends Migration
         Schema::table('manufacturers', function (Blueprint $table) {
             $table->dropColumn('image');
         });
+
+
     }
 }

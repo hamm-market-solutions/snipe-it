@@ -1,42 +1,39 @@
 <?php
-
 namespace App\Models;
 
 use App\Models\Traits\Searchable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Watson\Validating\ValidatingTrait;
 
 class Group extends SnipeModel
 {
-    use HasFactory;
-
     protected $table = 'permission_groups';
 
-    public $rules = [
+    public $rules = array(
       'name' => 'required|min:2|max:255',
-    ];
+    );
 
     /**
-     * Whether the model should inject it's identifier to the unique
-     * validation rules before attempting validation. If this property
-     * is not set in the model it will default to true.
-     *
-     * @var bool
-     */
+    * Whether the model should inject it's identifier to the unique
+    * validation rules before attempting validation. If this property
+    * is not set in the model it will default to true.
+    *
+    * @var boolean
+    */
     protected $injectUniqueIdentifier = true;
     use ValidatingTrait;
-    use Searchable;
 
+    use Searchable;
+    
     /**
      * The attributes that should be included when searching the model.
-     *
+     * 
      * @var array
      */
     protected $searchableAttributes = ['name', 'created_at'];
 
     /**
      * The relations and their attributes that should be included when searching the model.
-     *
+     * 
      * @var array
      */
     protected $searchableRelations = [];
@@ -50,7 +47,7 @@ class Group extends SnipeModel
      */
     public function users()
     {
-        return $this->belongsToMany(\App\Models\User::class, 'users_groups');
+        return $this->belongsToMany('\App\Models\User', 'users_groups');
     }
 
     /**

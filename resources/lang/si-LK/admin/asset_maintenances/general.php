@@ -11,6 +11,4 @@
         'calibration'        => 'Calibration',
         'software_support'   => 'මෘදුකාංග සහාය',
         'hardware_support'   => 'දෘඩාංග සහාය',
-        'configuration_change'   => 'Configuration Change',
-        'pat_test'           => 'PAT Test',
     ];

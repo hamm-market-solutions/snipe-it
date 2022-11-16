@@ -49,12 +49,6 @@ return array(
 
     ),
 
-    'fieldset_default_value' => array(
-
-        'error' => 'Varsayılan alan kümesi değerleri doğrulanırken bir hatayla karşılaşıldı.',
-
-    ),
-
 
 
 

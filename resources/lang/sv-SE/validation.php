@@ -64,7 +64,7 @@ return [
         'string'  => ':attribute måste vara minst :min tecken.',
         'array'   => ':attribute måste innehålla minst :min saker.',
     ],
-    'starts_with'          => ':attribute måste börja med något av följande: :values.',
+    'starts_with'          => 'The :attribute must start with one of the following: :values.',
     'not_in'               => 'Det valda :attribute är ogiltigt.',
     'numeric'              => ':attribute måste vara ett nummer.',
     'present'              => ':attribute fältet måste finnas.',
@@ -90,16 +90,7 @@ return [
     'uploaded'             => 'Uppladdningen av :attribute misslyckades.',
     'url'                  => ':attribute Formatet är ogiltigt.',
     'unique_undeleted'     => ':attribute måste vara unikt.',
-    'non_circular'         => ':attribute får inte skapa en cirkulär referens.',
-    'disallow_same_pwd_as_user_fields' => 'Password cannot be the same as the username.',
-    'letters'              => 'Password must contain at least one letter.',
-    'numbers'              => 'Password must contain at least one number.',
-    'case_diff'            => 'Password must use mixed case.',
-    'symbols'              => 'Password must contain symbols.',
-    'gte'                  => [
-        'numeric'          => 'Value cannot be negative'
-    ],
-
+    'non_circular'         => 'The :attribute must not create a circular reference.',
 
     /*
     |--------------------------------------------------------------------------

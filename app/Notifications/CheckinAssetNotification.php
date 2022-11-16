@@ -14,6 +14,7 @@ class CheckinAssetNotification extends Notification
 {
     use Queueable;
 
+
     /**
      * Create a new notification instance.
      *
@@ -22,15 +23,15 @@ class CheckinAssetNotification extends Notification
     public function __construct(Asset $asset, $checkedOutTo, User $checkedInBy, $note)
     {
         $this->target = $checkedOutTo;
-        $this->item = $asset;
-        $this->admin = $checkedInBy;
-        $this->note = $note;
+        $this->item   = $asset;
+        $this->admin  = $checkedInBy;
+        $this->note   = $note;
 
         $this->settings = Setting::getSettings();
         $this->expected_checkin = '';
 
         if ($this->item->expected_checkin) {
-            $this->expected_checkin = Helper::getFormattedDateObject($this->item->expected_checkin, 'date',
+            $this->expected_checkin = \App\Helpers\Helper::getFormattedDateObject($this->item->expected_checkin, 'date',
                 false);
         }
     }
@@ -42,9 +43,10 @@ class CheckinAssetNotification extends Notification
      */
     public function via()
     {
+
         $notifyBy = [];
 
-        if (Setting::getSettings()->slack_endpoint != '') {
+        if (Setting::getSettings()->slack_endpoint!='') {
             \Log::debug('use slack');
             $notifyBy[] = 'slack';
         }
@@ -53,7 +55,9 @@ class CheckinAssetNotification extends Notification
          * Only send checkin notifications to users if the category
          * has the corresponding checkbox checked.
          */
-        if ($this->item->checkin_email() && $this->target instanceof User && $this->target->email != '') {
+        if ($this->item->checkin_email() && $this->target instanceof User && $this->target->email != '')
+        {
+            \Log::debug('use email');
             $notifyBy[] = 'mail';
         }
 
@@ -62,10 +66,11 @@ class CheckinAssetNotification extends Notification
 
     public function toSlack()
     {
+
         $admin = $this->admin;
         $item = $this->item;
         $note = $this->note;
-        $botname = ($this->settings->slack_botname != '') ? $this->settings->slack_botname : 'Snipe-Bot';
+        $botname = ($this->settings->slack_botname!='') ? $this->settings->slack_botname : 'Snipe-Bot' ;
 
         $fields = [
             trans('general.administrator') => '<'.$admin->present()->viewUrl().'|'.$admin->present()->fullName().'>',
@@ -81,6 +86,8 @@ class CheckinAssetNotification extends Notification
                     ->fields($fields)
                     ->content($note);
             });
+
+
     }
 
     /**
@@ -108,6 +115,8 @@ class CheckinAssetNotification extends Notification
             ])
             ->subject(trans('mail.Asset_Checkin_Notification'));
 
+
         return $message;
     }
+
 }

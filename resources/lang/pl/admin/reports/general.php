@@ -2,9 +2,9 @@
 
 return [
     'info'   => 'Wybierz opcje, które chcesz by znalazły się w raporcie aktywów.',
-    'deleted_user' => 'Usuń użytkownika',
+    'deleted_user' => 'Deleted user',
     'send_reminder' => 'Wyślij przypomnienie',
     'reminder_sent' => 'Przypomnienie wysłane',
-    'acceptance_deleted' => 'Prośba o akceptację usunięta',
+    'acceptance_deleted' => 'Acceptance request deleted',
     'acceptance_request' => 'Prośba o akceptację'
 ];

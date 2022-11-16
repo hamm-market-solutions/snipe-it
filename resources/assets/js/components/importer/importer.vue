@@ -2,7 +2,6 @@
 
 <script>
     require('blueimp-file-upload');
-    var baseUrl = $('meta[name="baseUrl"]').attr('content');
     export default {
         /*
          * The component's data.
@@ -64,7 +63,7 @@
 
         methods: {
             fetchFiles() {
-                this.$http.get(baseUrl + 'api/v1/imports')
+                this.$http.get(route('api.imports.index'))
                 .then( ({data}) => this.files = data, // Success
                     //Fail
                 (response) => {
@@ -74,7 +73,7 @@
                 });
             },
             fetchCustomFields() {
-                this.$http.get(baseUrl + 'api/v1/fields')
+                this.$http.get(route('api.customfields.index'))
                 .then( ({data}) => {
                     data = data.rows;
                     data.forEach((item) => {
@@ -86,7 +85,7 @@
                 });
             },
             deleteFile(file, key) {
-                this.$http.delete(baseUrl + 'api/v1/imports/' + file.id)
+                this.$http.delete(route('api.imports.destroy', file.id))
                 .then(
                     // Success, remove file from array.
                     (response) => {

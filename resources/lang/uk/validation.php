@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'accepted'             => 'Ви повинні прийняти :attribute.',
-    'active_url'           => 'Поле :attribute не є правильним URL.',
+    'accepted'             => 'The :attribute must be accepted.',
+    'active_url'           => 'The :attribute is not a valid URL.',
     'after'                => 'The :attribute must be a date after :date.',
     'after_or_equal'       => 'The :attribute must be a date after or equal to :date.',
     'alpha'                => 'The :attribute may only contain letters.',
@@ -68,7 +68,7 @@ return [
     'not_in'               => 'The selected :attribute is invalid.',
     'numeric'              => 'The :attribute must be a number.',
     'present'              => 'The :attribute field must be present.',
-    'valid_regex'          => 'Це не коректний регулярний вираз. ',
+    'valid_regex'          => 'That is not a valid regex. ',
     'regex'                => 'The :attribute format is invalid.',
     'required'             => 'The :attribute field is required.',
     'required_if'          => 'The :attribute field is required when :other is :value.',
@@ -91,15 +91,6 @@ return [
     'url'                  => 'The :attribute format is invalid.',
     'unique_undeleted'     => 'The :attribute must be unique.',
     'non_circular'         => 'The :attribute must not create a circular reference.',
-    'disallow_same_pwd_as_user_fields' => 'Password cannot be the same as the username.',
-    'letters'              => 'Password must contain at least one letter.',
-    'numbers'              => 'Password must contain at least one number.',
-    'case_diff'            => 'Password must use mixed case.',
-    'symbols'              => 'Password must contain symbols.',
-    'gte'                  => [
-        'numeric'          => 'Value cannot be negative'
-    ],
-
 
     /*
     |--------------------------------------------------------------------------
@@ -124,11 +115,11 @@ return [
     */
 
     'custom' => [
-        'alpha_space' => 'Поле :attribute містить символ, який не допускається.',
-        'email_array'      => 'Одна або кілька адрес електронної пошти не правильні.',
-        'hashed_pass'      => 'Поточний пароль неправильний',
-        'dumbpwd'          => 'Цей пароль занадто вживаний.',
-        'statuslabel_type' => 'Ви повинні вибрати правильний тип статуса',
+        'alpha_space' => 'The :attribute field contains a character that is not allowed.',
+        'email_array'      => 'One or more email addresses is invalid.',
+        'hashed_pass'      => 'Your current password is incorrect',
+        'dumbpwd'          => 'That password is too common.',
+        'statuslabel_type' => 'You must select a valid status label type',
     ],
 
     /*

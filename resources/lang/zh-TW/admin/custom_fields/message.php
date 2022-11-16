@@ -49,12 +49,6 @@ return array(
 
     ),
 
-    'fieldset_default_value' => array(
-
-        'error' => '驗證預設字段集數值錯誤',
-
-    ),
-
 
 
 

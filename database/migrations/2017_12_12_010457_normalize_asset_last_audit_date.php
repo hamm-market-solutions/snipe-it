@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
 
 class NormalizeAssetLastAuditDate extends Migration
 {
@@ -13,11 +14,15 @@ class NormalizeAssetLastAuditDate extends Migration
      */
     public function up()
     {
-        if (! Schema::hasColumn('assets', 'last_audit_date')) {
+
+        if (!Schema::hasColumn('assets', 'last_audit_date')) {
             Schema::table('assets', function (Blueprint $table) {
                 $table->datetime('last_audit_date')->after('assigned_type')->nullable()->default(null);
             });
         }
+
+
+
     }
 
     /**

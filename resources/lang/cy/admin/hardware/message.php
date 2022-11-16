@@ -17,7 +17,6 @@ return [
         'error'   			=> 'Ni diweddarwyd yr assed, ceisiwch eto o. g. y. dd',
         'success' 			=> 'Ased wedi diweddaru\'n llwyddiannus.',
         'nothing_updated'	=>  'Dim newid mewn manylder, felly dim byd wedi\'i diweddaru.',
-        'no_assets_selected'  =>  'No assets were selected, so nothing was updated.',
     ],
 
     'restore' => [

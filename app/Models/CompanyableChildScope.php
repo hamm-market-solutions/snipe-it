@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -23,7 +22,6 @@ final class CompanyableChildScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         $model = $builder->getModel();
-
         return Company::scopeCompanyableChildren($model->getCompanyableParents(), $builder);
     }
 

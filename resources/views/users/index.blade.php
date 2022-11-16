@@ -1,4 +1,5 @@
 @extends('layouts/default')
+
 {{-- Page title --}}
 @section('title')
 
@@ -16,9 +17,9 @@
 
     @can('create', \App\Models\User::class)
         @if ($snipeSettings->ldap_enabled == 1)
-            <a href="{{ route('ldap/user') }}" class="btn btn-default pull-right"><span class="fas fa-sitemap"></span>{{trans('general.ldap_sync')}}</a>
+            <a href="{{ route('ldap/user') }}" class="btn btn-default pull-right"><span class="fa fa-sitemap"></span> LDAP Sync</a>
         @endif
-        <a href="{{ route('users.create') }}" accesskey="n" class="btn btn-primary pull-right" style="margin-right: 5px;">  {{ trans('general.create') }}</a>
+        <a href="{{ route('users.create') }}" class="btn btn-primary pull-right" style="margin-right: 5px;">  {{ trans('general.create') }}</a>
     @endcan
 
     @if (request('status')=='deleted')
@@ -27,7 +28,7 @@
         <a class="btn btn-default pull-right" href="{{ route('users.index', ['status' => 'deleted']) }}" style="margin-right: 5px;">{{ trans('admin/users/table.show_deleted') }}</a>
     @endif
     @can('view', \App\Models\User::class)
-        <a class="btn btn-default pull-right" href="{{ route('users.export') }}" style="margin-right: 5px;">{{ trans('general.export') }}</a>
+        <a class="btn btn-default pull-right" href="{{ route('users.export') }}" style="margin-right: 5px;">Export</a>
     @endcan
 @stop
 
@@ -38,8 +39,26 @@
   <div class="col-md-12">
     <div class="box box-default">
         <div class="box-body">
+          {{ Form::open([
+               'method' => 'POST',
+               'route' => ['users/bulkedit'],
+               'class' => 'form-inline',
+                'id' => 'bulkForm']) }}
 
-            @include('partials.users-bulk-actions')
+            @if (request('status')!='deleted')
+              @can('delete', \App\Models\User::class)
+                <div id="toolbar">
+                    <label for="bulk_actions" class="sr-only">Bulk Actions</label>
+                  <select name="bulk_actions" class="form-control select2" style="width: 200px;" aria-label="bulk_actions">
+                    <option value="delete">Bulk Checkin &amp; Delete</option>
+                    <option value="edit">Bulk Edit</option>
+                    <option value="bulkpasswordreset">{{ trans('button.send_password_link') }}</option>
+                  </select>
+                  <button class="btn btn-default" id="bulkEdit" disabled>Go</button>
+                </div>
+              @endcan
+            @endif
+
 
             <table
                     data-click-to-select="true"
@@ -50,13 +69,10 @@
                     data-search="true"
                     data-side-pagination="server"
                     data-show-columns="true"
-                    data-show-fullscreen="true"
                     data-show-export="true"
                     data-show-refresh="true"
                     data-sort-order="asc"
-                    data-toolbar="#userBulkEditToolbar"
-                    data-bulk-button-id="#bulkUserEditButton"
-                    data-bulk-form-id="#usersBulkForm"
+                    data-toolbar="#toolbar"
                     id="usersTable"
                     class="table table-striped snipe-table"
                     data-url="{{ route('api.users.index',

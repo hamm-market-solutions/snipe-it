@@ -1,10 +1,8 @@
 <?php
-
 namespace App\Models;
 
 use App\Models\Traits\Searchable;
 use App\Presenters\Presentable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Watson\Validating\ValidatingTrait;
@@ -17,30 +15,29 @@ use Watson\Validating\ValidatingTrait;
  */
 class AssetModel extends SnipeModel
 {
-    use HasFactory;
     use SoftDeletes;
-    protected $presenter = \App\Presenters\AssetModelPresenter::class;
-    use Loggable, Requestable, Presentable;
-
+    protected $presenter = 'App\Presenters\AssetModelPresenter';
+    use Requestable, Presentable;
+    protected $dates = ['deleted_at'];
     protected $table = 'models';
-    protected $hidden = ['user_id', 'deleted_at'];
+    protected $hidden = ['user_id','deleted_at'];
 
     // Declare the rules for the model validation
-    protected $rules = [
+    protected $rules = array(
         'name'              => 'required|min:1|max:255',
         'model_number'      => 'max:255|nullable',
         'category_id'       => 'required|integer|exists:categories,id',
-        'manufacturer_id'   => 'integer|exists:manufacturers,id|nullable',
+        'manufacturer_id'   => 'required|integer|exists:manufacturers,id',
         'eol'               => 'integer:min:0|max:240|nullable',
-    ];
+    );
 
     /**
-     * Whether the model should inject it's identifier to the unique
-     * validation rules before attempting validation. If this property
-     * is not set in the model it will default to true.
-     *
-     * @var bool
-     */
+    * Whether the model should inject it's identifier to the unique
+    * validation rules before attempting validation. If this property
+    * is not set in the model it will default to true.
+    *
+    * @var boolean
+    */
     protected $injectUniqueIdentifier = true;
     use ValidatingTrait;
 
@@ -52,7 +49,6 @@ class AssetModel extends SnipeModel
 
         $this->attributes['eol'] = $value;
     }
-
     /**
      * The attributes that are mass assignable.
      *
@@ -72,17 +68,17 @@ class AssetModel extends SnipeModel
     ];
 
     use Searchable;
-
+    
     /**
      * The attributes that should be included when searching the model.
-     *
+     * 
      * @var array
      */
     protected $searchableAttributes = ['name', 'model_number', 'notes', 'eol'];
 
     /**
      * The relations and their attributes that should be included when searching the model.
-     *
+     * 
      * @var array
      */
     protected $searchableRelations = [
@@ -90,6 +86,7 @@ class AssetModel extends SnipeModel
         'category'     => ['name'],
         'manufacturer' => ['name'],
     ];
+
 
     /**
      * Establishes the model -> assets relationship
@@ -100,7 +97,7 @@ class AssetModel extends SnipeModel
      */
     public function assets()
     {
-        return $this->hasMany(\App\Models\Asset::class, 'model_id');
+        return $this->hasMany('\App\Models\Asset', 'model_id');
     }
 
     /**
@@ -112,7 +109,7 @@ class AssetModel extends SnipeModel
      */
     public function category()
     {
-        return $this->belongsTo(\App\Models\Category::class, 'category_id');
+        return $this->belongsTo('\App\Models\Category', 'category_id');
     }
 
     /**
@@ -124,8 +121,9 @@ class AssetModel extends SnipeModel
      */
     public function depreciation()
     {
-        return $this->belongsTo(\App\Models\Depreciation::class, 'depreciation_id');
+        return $this->belongsTo('\App\Models\Depreciation', 'depreciation_id');
     }
+
 
     /**
      * Establishes the model -> manufacturer relationship
@@ -136,7 +134,7 @@ class AssetModel extends SnipeModel
      */
     public function manufacturer()
     {
-        return $this->belongsTo(\App\Models\Manufacturer::class, 'manufacturer_id');
+        return $this->belongsTo('\App\Models\Manufacturer', 'manufacturer_id');
     }
 
     /**
@@ -148,7 +146,7 @@ class AssetModel extends SnipeModel
      */
     public function fieldset()
     {
-        return $this->belongsTo(\App\Models\CustomFieldset::class, 'fieldset_id');
+        return $this->belongsTo('\App\Models\CustomFieldset', 'fieldset_id');
     }
 
     /**
@@ -160,8 +158,9 @@ class AssetModel extends SnipeModel
      */
     public function defaultValues()
     {
-        return $this->belongsToMany(\App\Models\CustomField::class, 'models_custom_fields')->withPivot('default_value');
+        return $this->belongsToMany('\App\Models\CustomField', 'models_custom_fields')->withPivot('default_value');
     }
+
 
     /**
      * Gets the full url for the image
@@ -172,37 +171,19 @@ class AssetModel extends SnipeModel
      * @since [v2.0]
      * @return \Illuminate\Database\Eloquent\Relations\Relation
      */
-    public function getImageUrl()
-    {
+    public function getImageUrl() {
         if ($this->image) {
             return Storage::disk('public')->url(app('models_upload_path').$this->image);
         }
-
         return false;
     }
 
     /**
-     * Get uploads for this model
-     *
-     * @author [A. Gianotto] [<snipe@snipe.net>]
-     * @since [v4.0]
-     * @return \Illuminate\Database\Eloquent\Relations\Relation
-     */
-    public function uploads()
-    {
-        return $this->hasMany('\App\Models\Actionlog', 'item_id')
-            ->where('item_type', '=', AssetModel::class)
-            ->where('action_type', '=', 'uploaded')
-            ->whereNotNull('filename')
-            ->orderBy('created_at', 'desc');
-    }
+    * -----------------------------------------------
+    * BEGIN QUERY SCOPES
+    * -----------------------------------------------
+    **/
 
-
-    /**
-     * -----------------------------------------------
-     * BEGIN QUERY SCOPES
-     * -----------------------------------------------
-     **/
 
     /**
      * scopeInCategory
@@ -217,6 +198,7 @@ class AssetModel extends SnipeModel
      */
     public function scopeInCategory($query, array $categoryIdListing)
     {
+
         return $query->whereIn('category_id', $categoryIdListing);
     }
 
@@ -232,8 +214,9 @@ class AssetModel extends SnipeModel
      */
     public function scopeRequestableModels($query)
     {
+
         return $query->where('requestable', '1');
-    }
+    }  
 
     /**
      * Query builder scope to search on text, including catgeory and manufacturer name
@@ -245,6 +228,7 @@ class AssetModel extends SnipeModel
      */
     public function scopeSearchByManufacturerOrCat($query, $search)
     {
+
         return $query->where('models.name', 'LIKE', "%$search%")
             ->orWhere('model_number', 'LIKE', "%$search%")
             ->orWhere(function ($query) use ($search) {
@@ -257,6 +241,7 @@ class AssetModel extends SnipeModel
                     $query->where('manufacturers.name', 'LIKE', '%'.$search.'%');
                 });
             });
+
     }
 
     /**
@@ -284,4 +269,6 @@ class AssetModel extends SnipeModel
     {
         return $query->leftJoin('categories', 'models.category_id', '=', 'categories.id')->orderBy('categories.name', $order);
     }
+
+
 }

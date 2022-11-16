@@ -20,7 +20,6 @@
             }
         };
     </script>
-    @livewireStyles
 
 
     @if (($snipeSettings) && ($snipeSettings->header_color))
@@ -56,7 +55,7 @@
 
     @if (($snipeSettings) && ($snipeSettings->logo!=''))
         <center>
-            <a href="{{ config('app.url') }}"><img id="login-logo" src="{{ Storage::disk('public')->url('').e($snipeSettings->logo) }}"></a>
+            <img id="login-logo" src="{{ Storage::disk('public')->url('').e($snipeSettings->logo) }}">
         </center>
     @endif
   <!-- Content -->
@@ -75,7 +74,6 @@
 
 
     @stack('js')
-    @livewireScripts
 </body>
 
 </html>

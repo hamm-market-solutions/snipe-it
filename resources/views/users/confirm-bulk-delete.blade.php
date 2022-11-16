@@ -1,7 +1,8 @@
 @extends('layouts/default')
+
 {{-- Page title --}}
 @section('title')
-{!! trans('general.bulk_checkin_delete') !!}
+Bulk Checkin &amp; Delete
 @parent
 @stop
 
@@ -17,16 +18,16 @@
           {{csrf_field()}}
           <div class="col-md-12">
             <div class="callout callout-danger">
-              <i class="fas fa-exclamation-triangle"></i>
-              <strong>{{ trans('admin/users/general.warning_deletion') }} </strong>
-              {{ trans('admin/users/general.warning_deletion_information', array('count' => count($users))) }}
+              <i class="fa fa-exclamation-circle"></i>
+              <strong>WARNING: </strong>
+              You are about to delete the {{ count($users) }} user(s) listed below. Super admin names are highlighted in red.
             </div>
           </div>
 
           @if (config('app.lock_passwords'))
             <div class="col-md-12">
               <div class="callout callout-warning">
-                <p>{{ trans('general.feature_disabled') }}</p>
+                <p>{{ trans('feature_disabled') }}</p>
               </div>
             </div>
           @endif
@@ -37,12 +38,11 @@
                 <thead>
                   <tr>
                     <th class="col-md-1"></th>
-                    <th class="col-md-6">{{ trans('general.name') }}</th>
-                    <th class="col-md-5">{{ trans('general.groups') }}</th>
-                    <th class="col-md-5">{{ trans('general.assets') }}</th>
-                    <th class="col-md-5">{{ trans('general.accessories') }}</th>
-                    <th class="col-md-5">{{ trans('general.licenses') }}</th>
-                    <th class="col-md-5">{{ trans('general.consumables') }}</th>
+                    <th class="col-md-6">Name</th>
+                    <th class="col-md-5">Groups</th>
+                    <th class="col-md-5">Assets</th>
+                    <th class="col-md-5">Accessories</th>
+                    <th class="col-md-5">Licenses</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -50,14 +50,14 @@
                   <tr {!! ($user->isSuperUser() ? ' class="danger"':'') !!}>
                     <td>
                       @if (Auth::id()!=$user->id)
-                      <input type="checkbox" name="ids[]" value="{{ $user->id }}" class="minimal" checked="checked">
+                      <input type="checkbox" name="ids[]" value="{{ $user->id }}" checked="checked">
                       @else
-                      <input type="checkbox" name="ids[]" value="{{ $user->id }}" class="minimal" disabled>
+                      <input type="checkbox" name="ids[]" value="{{ $user->id }}" disabled>
                       @endif
                     </td>
 
                     <td>
-                      <span {!! (Auth::user()->id==$user->id ? ' style="text-decoration: line-through"' : '') !!}>
+                      <span {{ (Auth::user()->id==$user->id ? ' style="text-decoration: line-through"' : '') }}>
                         {{ $user->present()->fullName() }} ({{ $user->username }})
                       </span>
                       {{ (Auth::id()==$user->id ? ' (cannot delete yourself)' : '') }}
@@ -78,26 +78,19 @@
                     <td>
                       {{ number_format($user->licenses()->count())  }}
                     </td>
-                    <td>
-                      {{ number_format($user->consumables()->count())  }}
-                    </td>
                   </tr>
                   @endforeach
                 </tbody>
                 <tfoot>
-
                   <tr>
-                    <td colspan="7">
+                    <td colspan="6" class="warning">
                       {{ Form::select('status_id', $statuslabel_list , Request::old('status_id'), array('class'=>'select2', 'style'=>'width:250px')) }}
-                      <label>{{ trans('admin/users/general.update_user_assets_status') }}</label>
+                      <label>Update all assets for these users to this status</label>
                     </td>
                   </tr>
                   <tr>
-                    <td colspan="7" class="text-danger">
-                      <label>
-                        <input type="checkbox" name="delete_user" value="1" class="minimal">
-                        <i class="fa fa-warning text-danger"></i> {{ trans('general.bulk_soft_delete') }}
-                      </label>
+                    <td colspan="6" class="warning">
+                      <label><input type="checkbox" name="ids['.e($user->id).']" checked> Check in all properties associated with these users</label>
                     </td>
                   </tr>
                 </tfoot>
@@ -107,7 +100,7 @@
         </div> <!--/box-body-->
         <div class="box-footer text-right">
           <a class="btn btn-link" href="{{ URL::previous() }}">{{ trans('button.cancel') }}</a>
-          <button type="submit" class="btn btn-success"><i class="fas fa-check icon-white" aria-hidden="true"></i> {{ trans('button.submit') }}</button>
+          <button type="submit" class="btn btn-success"><i class="fa fa-check icon-white" aria-hidden="true"></i> {{ trans('button.submit') }}</button>
         </div><!-- /.box-footer -->
       </form>
     </div>

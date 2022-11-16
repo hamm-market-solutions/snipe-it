@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class AllowNullableDepreciationIdInModels extends Migration
 {
@@ -19,6 +19,7 @@ class AllowNullableDepreciationIdInModels extends Migration
         Schema::table('licenses', function (Blueprint $table) {
             $table->integer('depreciation_id')->nullable()->default(null)->change();
         });
+
     }
 
     /**

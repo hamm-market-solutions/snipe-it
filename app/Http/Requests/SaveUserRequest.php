@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Models\Setting;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 
 class SaveUserRequest extends FormRequest
 {
@@ -24,6 +24,7 @@ class SaveUserRequest extends FormRequest
         return $this->redirector->back()->withInput()->withErrors($errors, $this->errorBag);
     }
 
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -31,18 +32,21 @@ class SaveUserRequest extends FormRequest
      */
     public function rules()
     {
+
         $rules = [
-            'manager_id' => 'nullable|exists:users,id',
+            'manager_id' => "nullable|exists:users,id"
         ];
 
-        switch ($this->method()) {
+        switch($this->method())
+        {
 
             // Brand new user
             case 'POST':
             {
                 $rules['first_name'] = 'required|string|min:1';
                 $rules['username'] = 'required_unless:ldap_import,1|string|min:1';
-                if ($this->request->get('ldap_import') == false) {
+                if ($this->request->get('ldap_import') == false)
+                {
                     $rules['password'] = Setting::passwordComplexityRulesSaving('store').'|confirmed';
                 }
                 break;
@@ -64,7 +68,9 @@ class SaveUserRequest extends FormRequest
 
             default:break;
         }
-
+        
         return $rules;
+
     }
+
 }

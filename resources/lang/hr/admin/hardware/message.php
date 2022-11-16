@@ -16,7 +16,6 @@ return [
         'error'   			=> 'Imovina nije ažurirana, pokušajte ponovo',
         'success' 			=> 'Imovina je uspješno ažurirana.',
         'nothing_updated'	=>  'Nije odabrano nijedno polje, tako da ništa nije ažurirano.',
-        'no_assets_selected'  =>  'No assets were selected, so nothing was updated.',
     ],
 
     'restore' => [

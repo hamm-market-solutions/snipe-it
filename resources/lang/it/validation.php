@@ -91,15 +91,6 @@ return [
     'url'                  => 'Il formato dell\' :attribute è invalido.',
     'unique_undeleted'     => 'L\'attributo deve essere univoco.',
     'non_circular'         => ':attribute non deve creare un riferimento circolare.',
-    'disallow_same_pwd_as_user_fields' => 'La password non può essere uguale al nome utente.',
-    'letters'              => 'La password deve contenere almeno una lettera.',
-    'numbers'              => 'La password deve contenere almeno un numero.',
-    'case_diff'            => 'La password deve utilizzare maiuscole e minuscole.',
-    'symbols'              => 'La password deve contenere simboli.',
-    'gte'                  => [
-        'numeric'          => 'Il valore non può essere negativo'
-    ],
-
 
     /*
     |--------------------------------------------------------------------------

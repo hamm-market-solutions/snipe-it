@@ -64,11 +64,11 @@ return [
         'string'  => 'התכונה: חייבת להיות לפחות: דקות תווים.',
         'array'   => 'התכונה: חייבת לכלול לפחות פריטים מינימליים.',
     ],
-    'starts_with'          => 'השדה חייב להכיל לפחות אחד מהערכים הבאים.',
+    'starts_with'          => 'The :attribute must start with one of the following: :values.',
     'not_in'               => 'התכונה שנבחרה: אינה חוקית.',
     'numeric'              => 'התכונה: חייבת להיות מספר.',
     'present'              => 'שדה התכונה: חייב להיות נוכח.',
-    'valid_regex'          => 'הקלט לא חוקי. ',
+    'valid_regex'          => 'That is not a valid regex. ',
     'regex'                => 'תבנית התכונה: אינה חוקית.',
     'required'             => 'שדה התכונה: נדרש.',
     'required_if'          => 'שדה התכונה: נדרש כאשר: other is: value.',
@@ -89,17 +89,8 @@ return [
     'unique'               => 'התכונה: כבר נלקחה.',
     'uploaded'             => 'התכונה: נכשלה.',
     'url'                  => 'תבנית התכונה: אינה חוקית.',
-    'unique_undeleted'     => 'השדה חייב מזהה יחודי.',
+    'unique_undeleted'     => 'The :attribute must be unique.',
     'non_circular'         => 'The :attribute must not create a circular reference.',
-    'disallow_same_pwd_as_user_fields' => 'Password cannot be the same as the username.',
-    'letters'              => 'Password must contain at least one letter.',
-    'numbers'              => 'Password must contain at least one number.',
-    'case_diff'            => 'Password must use mixed case.',
-    'symbols'              => 'Password must contain symbols.',
-    'gte'                  => [
-        'numeric'          => 'הערך לא יכול להיות שלילי'
-    ],
-
 
     /*
     |--------------------------------------------------------------------------

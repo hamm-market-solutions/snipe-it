@@ -6,7 +6,6 @@ return [
     'archived'  				=> 'Архівний',
     'asset'  					=> 'Актив',
     'bulk_checkout'             => 'Checkout Assets',
-    'bulk_checkin'              => 'Checkin Assets',
     'checkin'  					=> 'Прийняти актив',
     'checkout'  				=> 'Видати актив',
     'clone'  					=> 'Клонувати актив',

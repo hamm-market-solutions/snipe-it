@@ -10,7 +10,7 @@ return array(
     'email'      			=> 'E-mail',
     'employee_num'      	=> 'Numer pracownika',
     'first_name' 			=> 'Imię',
-    'groupnotes'			=> 'Wybierz grupę do przypisania użytkownikowi, pamiętaj, że użytkownik korzysta z uprawnień grupy, do której jest przypisany. Użyj ctrl+click (lub cmd+click na MacOS), aby odznaczyć grupy.',
+    'groupnotes'			=> 'Wybierz grupę w której przypiszesz użytkownika, dostanie on prawa grupy do której zostanie przypisany.',
     'id'         			=> 'ID',
     'inherit'  				=> 'Dziedziczy',
     'job' 					=> 'Stanowisko',

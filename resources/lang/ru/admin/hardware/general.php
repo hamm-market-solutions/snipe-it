@@ -6,7 +6,6 @@ return [
     'archived'  				=> 'Архивированные',
     'asset'  					=> 'Актив',
     'bulk_checkout'             => 'Выдать актив пользователю',
-    'bulk_checkin'              => 'Checkin Assets',
     'checkin'  					=> 'Вернуть актив на склад',
     'checkout'  				=> 'Выдать актив пользователю',
     'clone'  					=> 'Клонировать актив',
@@ -36,9 +35,9 @@ return [
     'csv_import_match_initial_last' => 'Try to match users by first initial last name (jsmith) format',
     'csv_import_match_first' => 'Try to match users by first name (jane) format',
     'csv_import_match_email' => 'Try to match users by email as username',
-    'csv_import_match_username' => 'Попытаться сопоставить пользователей по имени пользователя',
-    'error_messages' => 'Сообщения об ошибках:',
+    'csv_import_match_username' => 'Try to match users by username',
+    'error_messages' => 'Error messages:',
     'success_messages' => 'Success messages:',
-    'alert_details' => 'Подробности смотрите ниже.',
+    'alert_details' => 'Please see below for details.',
     'custom_export' => 'Custom Export'
 ];

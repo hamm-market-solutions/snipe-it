@@ -49,12 +49,6 @@ return array(
 
     ),
 
-    'fieldset_default_value' => array(
-
-        'error' => 'Fel vid validering av standardvärden för fältsamlingen.',
-
-    ),
-
 
 
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Transformers;
 
 use App\Helpers\Helper;
@@ -12,13 +11,13 @@ class AssetsTransformer
 {
     public function transformAssets(Collection $assets, $total)
     {
-        $array = [];
+        $array = array();
         foreach ($assets as $asset) {
             $array[] = self::transformAsset($asset);
         }
-
         return (new DatatablesTransformer)->transformDatatables($array, $total);
     }
+
 
     public function transformAsset(Asset $asset)
     {
@@ -32,10 +31,10 @@ class AssetsTransformer
             'serial' => e($asset->serial),
             'model' => ($asset->model) ? [
                 'id' => (int) $asset->model->id,
-                'name'=> e($asset->model->name),
+                'name'=> e($asset->model->name)
             ] : null,
             'model_number' => (($asset->model) && ($asset->model->model_number)) ? e($asset->model->model_number) : null,
-            'eol' => ($asset->purchase_date != '') ? Helper::getFormattedDateObject($asset->present()->eol_date(), 'date') : null,
+            'eol' => ($asset->purchase_date!='') ? Helper::getFormattedDateObject($asset->present()->eol_date(), 'date') : null ,
             'status_label' => ($asset->assetstatus) ? [
                 'id' => (int) $asset->assetstatus->id,
                 'name'=> e($asset->assetstatus->name),
@@ -44,36 +43,36 @@ class AssetsTransformer
             ] : null,
             'category' => (($asset->model) && ($asset->model->category)) ? [
                 'id' => (int) $asset->model->category->id,
-                'name'=> e($asset->model->category->name),
-            ] : null,
+                'name'=> e($asset->model->category->name)
+            ]  : null,
             'manufacturer' => (($asset->model) && ($asset->model->manufacturer)) ? [
                 'id' => (int) $asset->model->manufacturer->id,
-                'name'=> e($asset->model->manufacturer->name),
+                'name'=> e($asset->model->manufacturer->name)
             ] : null,
             'supplier' => ($asset->supplier) ? [
                 'id' => (int) $asset->supplier->id,
-                'name'=> e($asset->supplier->name),
-            ] : null,
+                'name'=> e($asset->supplier->name)
+            ]  : null,
             'notes' => ($asset->notes) ? e($asset->notes) : null,
             'order_number' => ($asset->order_number) ? e($asset->order_number) : null,
             'company' => ($asset->company) ? [
                 'id' => (int) $asset->company->id,
-                'name'=> e($asset->company->name),
+                'name'=> e($asset->company->name)
             ] : null,
             'location' => ($asset->location) ? [
                 'id' => (int) $asset->location->id,
-                'name'=> e($asset->location->name),
-            ] : null,
+                'name'=> e($asset->location->name)
+            ]  : null,
             'rtd_location' => ($asset->defaultLoc) ? [
                 'id' => (int) $asset->defaultLoc->id,
-                'name'=> e($asset->defaultLoc->name),
-            ] : null,
+                'name'=> e($asset->defaultLoc->name)
+            ]  : null,
             'image' => ($asset->getImageUrl()) ? $asset->getImageUrl() : null,
             'qr' => ($setting->qr_code=='1') ? config('app.url').'/uploads/barcodes/qr-'.str_slug($asset->asset_tag).'-'.str_slug($asset->id).'.png' : null,
             'alt_barcode' => ($setting->alt_barcode_enabled=='1') ? config('app.url').'/uploads/barcodes/'.str_slug($setting->alt_barcode).'-'.str_slug($asset->asset_tag).'.png' : null,
             'assigned_to' => $this->transformAssignedTo($asset),
-            'warranty_months' =>  ($asset->warranty_months > 0) ? e($asset->warranty_months.' '.trans('admin/hardware/form.months')) : null,
-            'warranty_expires' => ($asset->warranty_months > 0) ? Helper::getFormattedDateObject($asset->warranty_expires, 'date') : null,
+            'warranty_months' =>  ($asset->warranty_months > 0) ? e($asset->warranty_months . ' ' . trans('admin/hardware/form.months')) : null,
+            'warranty_expires' => ($asset->warranty_months > 0) ?  Helper::getFormattedDateObject($asset->warranty_expires, 'date') : null,
             'created_at' => Helper::getFormattedDateObject($asset->created_at, 'datetime'),
             'updated_at' => Helper::getFormattedDateObject($asset->updated_at, 'datetime'),
             'last_audit_date' => Helper::getFormattedDateObject($asset->last_audit_date, 'datetime'),
@@ -91,47 +90,33 @@ class AssetsTransformer
 
 
         if (($asset->model) && ($asset->model->fieldset) && ($asset->model->fieldset->fields->count() > 0)) {
-            $fields_array = [];
+            $fields_array = array();
 
             foreach ($asset->model->fieldset->fields as $field) {
-                if ($field->isFieldDecryptable($asset->{$field->db_column})) {
-                    $decrypted = Helper::gracefulDecrypt($field, $asset->{$field->db_column});
+
+                if ($field->isFieldDecryptable($asset->{$field->convertUnicodeDbSlug()})) {
+                    $decrypted = \App\Helpers\Helper::gracefulDecrypt($field,$asset->{$field->convertUnicodeDbSlug()});
                     $value = (Gate::allows('superadmin')) ? $decrypted : strtoupper(trans('admin/custom_fields/general.encrypted'));
 
-                    if ($field->format == 'DATE'){
-                        if (Gate::allows('superadmin')){
-                            $value = Helper::getFormattedDateObject($value, 'date', false);
-                        } else {
-                           $value = strtoupper(trans('admin/custom_fields/general.encrypted'));
-                        }
-                    }
-
                     $fields_array[$field->name] = [
-                            'field' => e($field->db_column),
+                            'field' => e($field->convertUnicodeDbSlug()),
                             'value' => e($value),
                             'field_format' => $field->format,
-                            'element' => $field->element,
                         ];
 
                 } else {
-                    $value = $asset->{$field->db_column};
-
-                    if (($field->format == 'DATE') && (!is_null($value)) && ($value!='')){
-                        $value = Helper::getFormattedDateObject($value, 'date', false);
-                    }
-                    
                     $fields_array[$field->name] = [
-                        'field' => e($field->db_column),
-                        'value' => e($value),
+                        'field' => e($field->convertUnicodeDbSlug()),
+                        'value' => e($asset->{$field->convertUnicodeDbSlug()}),
                         'field_format' => $field->format,
-                        'element' => $field->element,
                     ];
-                }
 
+
+                }
                 $array['custom_fields'] = $fields_array;
             }
         } else {
-            $array['custom_fields'] = new \stdClass; // HACK to force generation of empty object instead of empty list
+            $array['custom_fields'] = array();
         }
 
         $permissions_array['available_actions'] = [
@@ -141,7 +126,8 @@ class AssetsTransformer
             'restore'       => ($asset->deleted_at!='' && Gate::allows('create', Asset::class)) ? true : false,
             'update'        => ($asset->deleted_at=='' && Gate::allows('update', Asset::class)) ? true : false,
             'delete'        => ($asset->deleted_at=='' && $asset->assigned_to =='' && Gate::allows('delete', Asset::class)) ? true : false,
-        ];      
+        ];
+
 
 
         if (request('components')=='true') {
@@ -167,7 +153,6 @@ class AssetsTransformer
         }
         
         $array += $permissions_array;
-
         return $array;
     }
 
@@ -186,10 +171,9 @@ class AssetsTransformer
                     'first_name'=> e($asset->assigned->first_name),
                     'last_name'=> ($asset->assigned->last_name) ? e($asset->assigned->last_name) : null,
                     'employee_number' =>  ($asset->assigned->employee_num) ? e($asset->assigned->employee_num) : null,
-                    'type' => 'user',
+                    'type' => 'user'
                 ] : null;
         }
-
         return $asset->assigned ? [
             'id' => $asset->assigned->id,
             'name' => e($asset->assigned->display_name),
@@ -200,16 +184,14 @@ class AssetsTransformer
 
     public function transformRequestedAssets(Collection $assets, $total)
     {
-        $array = [];
+        $array = array();
         foreach ($assets as $asset) {
             $array[] = self::transformRequestedAsset($asset);
         }
-
         return (new DatatablesTransformer)->transformDatatables($array, $total);
     }
 
-    public function transformRequestedAsset(Asset $asset)
-    {
+    public function transformRequestedAsset(Asset $asset) {
         $array = [
             'id' => (int) $asset->id,
             'name' => e($asset->name),
@@ -221,17 +203,16 @@ class AssetsTransformer
             'expected_checkin' => Helper::getFormattedDateObject($asset->expected_checkin, 'date'),
             'location' => ($asset->location) ? e($asset->location->name) : null,
             'status'=> ($asset->assetstatus) ? $asset->present()->statusMeta : null,
-            'assigned_to_self' => ($asset->assigned_to == \Auth::user()->id),
         ];
 
         $permissions_array['available_actions'] = [
             'cancel' => ($asset->isRequestedBy(\Auth::user())) ? true : false,
             'request' => ($asset->isRequestedBy(\Auth::user())) ? false : true,
+
         ];
 
-        $array += $permissions_array;
+         $array += $permissions_array;
         return $array;
-
 
     }
 }

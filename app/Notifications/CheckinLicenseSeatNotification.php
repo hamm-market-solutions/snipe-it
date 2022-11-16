@@ -41,7 +41,7 @@ class CheckinLicenseSeatNotification extends Notification
     {
         $notifyBy = [];
 
-        if (Setting::getSettings()->slack_endpoint != '') {
+        if (Setting::getSettings()->slack_endpoint!='') {
             $notifyBy[] = 'slack';
         }
 
@@ -49,7 +49,8 @@ class CheckinLicenseSeatNotification extends Notification
          * Only send checkin notifications to users if the category
          * has the corresponding checkbox checked.
          */
-        if ($this->item->checkin_email() && $this->target instanceof User && $this->target->email != '') {
+        if ($this->item->checkin_email() && $this->target instanceof User && $this->target->email != '')
+        {
             $notifyBy[] = 'mail';
         }
 
@@ -58,11 +59,13 @@ class CheckinLicenseSeatNotification extends Notification
 
     public function toSlack()
     {
+
         $target = $this->target;
         $admin = $this->admin;
         $item = $this->item;
         $note = $this->note;
-        $botname = ($this->settings->slack_botname) ? $this->settings->slack_botname : 'Snipe-Bot';
+        $botname = ($this->settings->slack_botname) ? $this->settings->slack_botname : 'Snipe-Bot' ;
+
 
         if ($admin) {
             $fields = [
@@ -76,6 +79,9 @@ class CheckinLicenseSeatNotification extends Notification
             ];
         }
 
+
+
+
         return (new SlackMessage)
             ->content(':arrow_down: :floppy_disk: '.trans('mail.License_Checkin_Notification'))
             ->from($botname)
@@ -85,7 +91,6 @@ class CheckinLicenseSeatNotification extends Notification
                     ->content($note);
             });
     }
-
     /**
      * Get the mail representation of the notification.
      *
@@ -102,5 +107,7 @@ class CheckinLicenseSeatNotification extends Notification
                 'target'        => $this->target,
             ])
             ->subject(trans('mail.License_Checkin_Notification'));
+
     }
+
 }

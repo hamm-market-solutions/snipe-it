@@ -16,13 +16,15 @@ class ComponentObserver
      */
     public function updated(Component $component)
     {
+
         $logAction = new Actionlog();
         $logAction->item_type = Component::class;
         $logAction->item_id = $component->id;
-        $logAction->created_at = date('Y-m-d H:i:s');
+        $logAction->created_at =  date("Y-m-d H:i:s");
         $logAction->user_id = Auth::id();
         $logAction->logaction('update');
     }
+
 
     /**
      * Listen to the Component created event when
@@ -36,9 +38,10 @@ class ComponentObserver
         $logAction = new Actionlog();
         $logAction->item_type = Component::class;
         $logAction->item_id = $component->id;
-        $logAction->created_at = date('Y-m-d H:i:s');
+        $logAction->created_at =  date("Y-m-d H:i:s");
         $logAction->user_id = Auth::id();
         $logAction->logaction('create');
+
     }
 
     /**
@@ -52,7 +55,7 @@ class ComponentObserver
         $logAction = new Actionlog();
         $logAction->item_type = Component::class;
         $logAction->item_id = $component->id;
-        $logAction->created_at = date('Y-m-d H:i:s');
+        $logAction->created_at =  date("Y-m-d H:i:s");
         $logAction->user_id = Auth::id();
         $logAction->logaction('delete');
     }

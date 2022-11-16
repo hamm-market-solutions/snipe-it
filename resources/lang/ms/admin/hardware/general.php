@@ -6,7 +6,6 @@ return [
     'archived'  				=> 'Diarkibkan',
     'asset'  					=> 'Harta',
     'bulk_checkout'             => 'Daftar Keluar Aset',
-    'bulk_checkin'              => 'Checkin Assets',
     'checkin'  					=> 'Terima Harta',
     'checkout'  				=> 'Aset Checkout',
     'clone'  					=> 'Pendua Harta',

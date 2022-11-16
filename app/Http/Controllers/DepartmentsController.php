@@ -34,9 +34,9 @@ class DepartmentsController extends Controller
         if ($request->filled('company_id')) {
             $company = Company::find($request->input('company_id'));
         }
-
         return view('departments/index')->with('company', $company);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -53,15 +53,13 @@ class DepartmentsController extends Controller
         $department = new Department;
         $department->fill($request->all());
         $department->user_id = Auth::user()->id;
-        $department->manager_id = ($request->filled('manager_id') ? $request->input('manager_id') : null);
-        $department->location_id = ($request->filled('location_id') ? $request->input('location_id') : null);
-        $department->company_id = ($request->filled('company_id') ? $request->input('company_id') : null);
+        $department->manager_id = ($request->filled('manager_id' ) ? $request->input('manager_id') : null);
+
         $department = $request->handleImages($department);
 
         if ($department->save()) {
-            return redirect()->route('departments.index')->with('success', trans('admin/departments/message.create.success'));
+            return redirect()->route("departments.index")->with('success', trans('admin/departments/message.create.success'));
         }
-
         return redirect()->back()->withInput()->withErrors($department->getErrors());
     }
 
@@ -84,9 +82,9 @@ class DepartmentsController extends Controller
         if (isset($department->id)) {
             return view('departments/view', compact('department'));
         }
-
         return redirect()->route('departments.index')->with('error', trans('admin/departments/message.does_not_exist'));
     }
+
 
     /**
      * Returns a form view used to create a new department.
@@ -103,6 +101,7 @@ class DepartmentsController extends Controller
 
         return view('departments/edit')->with('item', new Department);
     }
+
 
     /**
      * Validates and deletes selected department.
@@ -126,7 +125,7 @@ class DepartmentsController extends Controller
         }
 
         if ($department->image) {
-            try {
+            try  {
                 Storage::disk('public')->delete('departments'.'/'.$department->image);
             } catch (\Exception $e) {
                 \Log::debug($e);
@@ -135,6 +134,7 @@ class DepartmentsController extends Controller
         $department->delete();
 
         return redirect()->back()->with('success', trans('admin/departments/message.delete.success'));
+
     }
 
     /**
@@ -158,8 +158,8 @@ class DepartmentsController extends Controller
         return view('departments/edit', compact('item'));
     }
 
-    public function update(ImageUploadRequest $request, $id)
-    {
+    public function update(ImageUploadRequest $request, $id) {
+
         if (is_null($department = Department::find($id))) {
             return redirect()->route('departments.index')->with('error', trans('admin/departments/message.does_not_exist'));
         }
@@ -167,16 +167,13 @@ class DepartmentsController extends Controller
         $this->authorize('update', $department);
 
         $department->fill($request->all());
-        $department->manager_id = ($request->filled('manager_id') ? $request->input('manager_id') : null);
-        $department->location_id = ($request->filled('location_id') ? $request->input('location_id') : null);
-        $department->company_id = ($request->filled('company_id') ? $request->input('company_id') : null);
+        $department->manager_id = ($request->filled('manager_id' ) ? $request->input('manager_id') : null);
 
         $department = $request->handleImages($department);
-
+        
         if ($department->save()) {
-            return redirect()->route('departments.index')->with('success', trans('admin/departments/message.update.success'));
+            return redirect()->route("departments.index")->with('success', trans('admin/departments/message.update.success'));
         }
-
         return redirect()->back()->withInput()->withErrors($department->getErrors());
     }
 }

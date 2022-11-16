@@ -2,14 +2,14 @@
 
 return array(
 
-    'does_not_exist' => 'License does not exist or you do not have permission to view it.',
+    'does_not_exist' => 'مجوز وجود ندارد.',
     'user_does_not_exist' => 'کاربر وجود ندارد.',
     'asset_does_not_exist' 	=> 'دارایی شما در حال تلاش برای ارتباط با این مجوز وجود ندارد.',
     'owner_doesnt_match_asset' => 'دارایی شما در حال تلاش برای ارتباط با این مجوز توسط کسی غیر از فرد در اختصاص داده شده به انتخاب کرکره متعلق به.
 ',
     'assoc_users'	 => 'این مجوز در حال حاضر به یک کاربر چک کردن و پاک نمی شود. لطفا مجوز در اولین بار چک کنید، و سپس سعی کنید دوباره حذف کنید.',
     'select_asset_or_person' => 'شما باید دارایی یا یک کاربر را انتخاب کنید، اما نه هر دو.',
-    'not_found' => 'فایل یافت نشد',
+    'not_found' => 'License not found',
 
 
     'create' => array(

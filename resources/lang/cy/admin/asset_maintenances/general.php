@@ -11,6 +11,4 @@
         'calibration'        => 'Graddnodi',
         'software_support'   => 'Cefnogaeth meddalwedd',
         'hardware_support'   => 'Cefnogaeth caledwedd',
-        'configuration_change'   => 'Configuration Change',
-        'pat_test'           => 'PAT Test',
     ];

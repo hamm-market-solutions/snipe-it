@@ -2,19 +2,19 @@
 
 namespace App\Exceptions;
 
+use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use App\Helpers\Helper;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Auth\AuthenticationException;
 use Log;
-use Throwable;
 use JsonException;
 
 
 class Handler extends ExceptionHandler
 {
     /**
-     * A list of the exception types that are not reported.
+     * A list of the exception types that should not be reported.
      *
      * @var array
      */
@@ -27,7 +27,7 @@ class Handler extends ExceptionHandler
         \Illuminate\Validation\ValidationException::class,
         \Intervention\Image\Exception\NotSupportedException::class,
         \League\OAuth2\Server\Exception\OAuthServerException::class,
-        JsonException::class,
+        JsonException::class
     ];
 
     /**
@@ -35,10 +35,10 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Throwable  $exception
+     * @param  \Exception  $exception
      * @return void
      */
-    public function report(Throwable $exception)
+    public function report(Exception $exception)
     {
         if ($this->shouldReport($exception)) {
             \Log::error($exception);
@@ -48,12 +48,12 @@ class Handler extends ExceptionHandler
 
     /**
      * Render an exception into an HTTP response.
-     * 
+     *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Exception  $e
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Throwable $e)
+    public function render($request, Exception $e)
     {
 
 
@@ -106,7 +106,7 @@ class Handler extends ExceptionHandler
 
     }
 
- /**
+    /**
      * Convert an authentication exception into an unauthenticated response.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -122,27 +122,15 @@ class Handler extends ExceptionHandler
         return redirect()->guest('login');
     }
 
-
-    /** 
-     * A list of the inputs that are never flashed for validation exceptions.
-     *
-     * @var array
-     */
-    protected $dontFlash = [
-        'current_password',
-        'password',
-        'password_confirmation',
-    ];
-
     /**
-     * Register the exception handling callbacks for the application.
+     * Convert a validation exception into a JSON response.
      *
-     * @return void
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Validation\ValidationException  $exception
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function register()
+    protected function invalidJson($request, ValidationException $exception)
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
+        return response()->json(Helper::formatStandardApiResponse('error', null, $exception->errors(), 422));
     }
 }

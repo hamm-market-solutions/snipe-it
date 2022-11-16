@@ -11,6 +11,4 @@
         'calibration'        => 'Calibrazione',
         'software_support'   => 'Supporto Software',
         'hardware_support'   => 'Supporto Hardware',
-        'configuration_change'   => 'Modifiche alla Configurazione',
-        'pat_test'           => 'Test PAT',
     ];

@@ -91,15 +91,6 @@ return [
     'url'                  => 'Attributt-formatet :attribute er ugyldig.',
     'unique_undeleted'     => ':attribute må være unikt.',
     'non_circular'         => 'Attributtet :attribute kan ikke opprette en sirkulær referanse.',
-    'disallow_same_pwd_as_user_fields' => 'Password cannot be the same as the username.',
-    'letters'              => 'Password must contain at least one letter.',
-    'numbers'              => 'Password must contain at least one number.',
-    'case_diff'            => 'Password must use mixed case.',
-    'symbols'              => 'Password must contain symbols.',
-    'gte'                  => [
-        'numeric'          => 'Value cannot be negative'
-    ],
-
 
     /*
     |--------------------------------------------------------------------------

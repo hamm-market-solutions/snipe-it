@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Transformers;
 
 use App\Models\PredefinedKit;
@@ -9,27 +8,27 @@ use Illuminate\Database\Eloquent\Collection;
 
 /**
  * transforms collection of models to array with simple typres
- *
+ * 
  * @author [D. Minaev] [<dmitriy.minaev.v@gmail.com>]
  * @return array
  */
 class PredefinedKitsTransformer
 {
-    public function transformPredefinedKits(Collection $kits, $total)
+
+    public function transformPredefinedKits (Collection $kits, $total)
     {
-        $array = [];
+        $array = array();
         foreach ($kits as $kit) {
             $array[] = self::transformPredefinedKit($kit);
         }
-
         return (new DatatablesTransformer)->transformDatatables($array, $total);
     }
 
-    public function transformPredefinedKit(PredefinedKit $kit)
+    public function transformPredefinedKit (PredefinedKit $kit)
     {
         $array = [
             'id' => (int) $kit->id,
-            'name' => e($kit->name),
+            'name' => e($kit->name)
         ];
 
         $permissions_array['available_actions'] = [
@@ -41,32 +40,28 @@ class PredefinedKitsTransformer
         ];
         $array['user_can_checkout'] = true;
         $array += $permissions_array;
-
         return $array;
     }
 
     /**
-     * transform collection of any elemets attached to kit
+     * transform collection of any elemets attached to kit 
      * @return array
      */
-    public function transformElements(Collection $elements, $total)
-    {
-        $array = [];
+    public function transformElements(Collection $elements, $total) {
+        $array = array();
         foreach ($elements as $element) {
             $array[] = self::transformElement($element);
         }
-
         return (new DatatablesTransformer)->transformDatatables($array, $total);
     }
 
-    public function transformElement(SnipeModel $element)
-    {
+    public function transformElement(SnipeModel $element) {
         $array = [
             'id' => (int) $element->id,
             'pivot_id' => (int) $element->pivot->id,
             'owner_id' => (int) $element->pivot->kit_id,
             'quantity' => (int) $element->pivot->quantity,
-            'name' => e($element->name),
+            'name' => e($element->name)
         ];
 
         $permissions_array['available_actions'] = [
@@ -75,12 +70,12 @@ class PredefinedKitsTransformer
         ];
 
         $array += $permissions_array;
-
         return $array;
     }
 
-    public function transformPredefinedKitsDatatable($kits)
-    {
+    public function transformPredefinedKitsDatatable($kits) {
         return (new DatatablesTransformer)->transformDatatables($kits);
     }
+
+
 }

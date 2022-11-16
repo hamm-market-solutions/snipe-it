@@ -11,6 +11,4 @@
         'calibration'        => 'Etalonnage',
         'software_support'   => 'Support logiciel',
         'hardware_support'   => 'Support matériel',
-        'configuration_change'   => 'Changement de configuration',
-        'pat_test'           => 'Test d\'appareil portable (PAT)',
     ];

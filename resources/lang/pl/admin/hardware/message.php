@@ -5,7 +5,7 @@ return [
     'undeployable' 		=> '<strong>Uwaga: </strong> To aktywo zostało oznaczone jako tymczasowo niemożliwe do wdrożenia.
                         Jeśli jego stan się zmienił, zaktualizuj status aktywa.',
     'does_not_exist' 	=> 'Nabytek/zasób nie istnieje.',
-    'does_not_exist_or_not_requestable' => 'Aktywo nie istnieje albo nie można go zażądać.',
+    'does_not_exist_or_not_requestable' => 'That asset does not exist or is not requestable.',
     'assoc_users'	 	=> 'Ten nabytek/zasób jest przypisany do użytkownika i nie może być usunięty. Proszę sprawdzić przypisanie nabytków/zasobów a następnie spróbować ponownie.',
 
     'create' => [
@@ -17,7 +17,6 @@ return [
         'error'   			=> 'Nie zaktualizowano nabytku/zasobu, proszę spróbować ponownie',
         'success' 			=> 'Aktualizacja poprawna.',
         'nothing_updated'	=>  'Żadne pole nie zostało wybrane, więc nic nie zostało zmienione.',
-        'no_assets_selected'  =>  'Żadne aktywa nie zostały wybrane, więc nic nie zostało zmienione.',
     ],
 
     'restore' => [

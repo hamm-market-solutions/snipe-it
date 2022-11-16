@@ -6,6 +6,6 @@ return [
     'months'   => 'Ay',
     'term'   => 'Süre',
     'title'      => 'İsim',
-    'depreciation_min' => 'Taban Değeri',
+    'depreciation_min' => 'Floor Value',
 
 ];

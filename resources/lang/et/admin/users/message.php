@@ -14,7 +14,6 @@ return array(
     'ldap_not_configured'        => 'LDAP-i integreerimine pole selle installi jaoks konfigureeritud.',
     'password_resets_sent'      => 'Parooli taastamise link on saadetud valitud aktiivsetele kasutajatele kellel on õige emaili aadress.',
     'password_reset_sent'       => 'Parooli taastamise aadress on saadetud :email!',
-    'user_has_no_email'         => 'This user does not have an email address in their profile.',
 
 
     'success' => array(
@@ -48,7 +47,7 @@ return array(
     ),
 
     'deletefile' => array(
-        'error'   => 'Faili ei kustutatud. Palun proovi uuesti.',
+        'error'   => 'Faili ei kustustatud. Palun proovi uuesti.',
         'success' => 'Fail kustutati.',
     ),
 
@@ -56,7 +55,7 @@ return array(
         'error'   => 'Fail(e) ei laetud üles. Palun proovi uuesti.',
         'success' => 'Fail(id) laeti edukalt üles.',
         'nofiles' => 'Sa ei valinud üles laadimiseks ühtegi faili',
-        'invalidfiles' => 'Üks või mitu sinu failidest on kas liiga suured või ei ole lubatud tüüpi. Lubatud tüübid on png, gif, jpg, doc, docx, pdf ja txt.',
+        'invalidfiles' => 'Üks või mitu sibu failidest on kas liigas uured või ei ole lubatud tüüpi. Lobatud tüübid on png, gif, jpg, doc, docx, pdf, ja txt.',
     ),
 
 );

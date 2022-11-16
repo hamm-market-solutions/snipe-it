@@ -25,6 +25,6 @@ return [
     'assigned_to'    => 'Assigned To',
     'requesting_user' => 'Requesting User',
     'requested_date' => 'Requested Date',
-    'changed'       => 'Wedi newid',
-    'icon' => 'Eicon',
+    'changed'       => 'Changed',
+    'icon' => 'Icon',
 ];

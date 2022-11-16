@@ -64,7 +64,7 @@ return [
         'string'  => ':attribute phải ít nhất :min ký tự.',
         'array'   => 'Thuộc tính: phải có ít nhất: min items.',
     ],
-    'starts_with'          => 'Trường :attribute phải kết thúc bằng một trong những giá trị sau: :values',
+    'starts_with'          => 'The :attribute must start with one of the following: :values.',
     'not_in'               => ':attribute đã chọn không hợp lý.',
     'numeric'              => ':attribute phải là một số.',
     'present'              => 'Trường thuộc tính: phải có mặt.',
@@ -91,15 +91,6 @@ return [
     'url'                  => 'Định dạng :attribute thì không hợp lý.',
     'unique_undeleted'     => 'Thuộc tính: phải là duy nhất.',
     'non_circular'         => 'The :attribute must not create a circular reference.',
-    'disallow_same_pwd_as_user_fields' => 'Password cannot be the same as the username.',
-    'letters'              => 'Password must contain at least one letter.',
-    'numbers'              => 'Password must contain at least one number.',
-    'case_diff'            => 'Password must use mixed case.',
-    'symbols'              => 'Password must contain symbols.',
-    'gte'                  => [
-        'numeric'          => 'Value cannot be negative'
-    ],
-
 
     /*
     |--------------------------------------------------------------------------

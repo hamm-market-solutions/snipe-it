@@ -1,5 +1,4 @@
 <?php
-
 $I = new AcceptanceTester($scenario);
 AcceptanceTester::test_login($I);
 $I->am('logged in user');

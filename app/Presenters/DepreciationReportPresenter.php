@@ -48,7 +48,13 @@ class DepreciationReportPresenter extends Presenter
                 "sortable" => true,
                 "title" => trans('general.asset_model'),
                 "visible" => true,
-            ],  [
+            ], [
+                "field" => "model",
+                "searchable" => true,
+                "sortable" => true,
+                "title" => trans('admin/hardware/form.model'),
+                "visible" => true,
+            ], [
                 "field" => "model_number",
                 "searchable" => true,
                 "sortable" => true,
@@ -122,7 +128,6 @@ class DepreciationReportPresenter extends Presenter
                 "visible" => true,
                 "title" => trans('general.purchase_cost'),
                 "footerFormatter" => 'sumFormatter',
-                "class" => "text-right",
             ], [
                 "field" => "order_number",
                 "searchable" => true,
@@ -143,7 +148,6 @@ class DepreciationReportPresenter extends Presenter
                 "visible" => true,
                 "title" => trans('admin/hardware/table.book_value'),
                 "footerFormatter" => 'sumFormatter',
-                "class" => "text-right",
             ], [
                 "field" => "monthly_depreciation",
                 "searchable" => true,
@@ -157,7 +161,6 @@ class DepreciationReportPresenter extends Presenter
                 "visible" => true,
                 "title" => trans('admin/hardware/table.diff'),
                 "footerFormatter" => 'sumFormatter',
-                "class" => "text-right",
             ],[
                 "field" => "warranty_expires",
                 "searchable" => false,
@@ -371,7 +374,7 @@ class DepreciationReportPresenter extends Presenter
      * Date the warantee expires.
      * @return false|string
      */
-    public function warranty_expires()
+    public function warrantee_expires()
     {
         if (($this->purchase_date) && ($this->warranty_months)) {
             $date = date_create($this->purchase_date);
@@ -393,6 +396,6 @@ class DepreciationReportPresenter extends Presenter
 
     public function glyph()
     {
-        return '<i class="fas fa-barcode" aria-hidden="true"></i>';
+        return '<i class="fa fa-barcode" aria-hidden="true"></i>';
     }
 }

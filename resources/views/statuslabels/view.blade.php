@@ -1,4 +1,5 @@
 @extends('layouts/default')
+
 {{-- Page title --}}
 @section('title')
     {{ $statuslabel->name }} {{ trans('general.assets') }}
@@ -12,7 +13,23 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-body">
-                    @include('partials.asset-bulk-actions')
+                    {{ Form::open([
+                      'method' => 'POST',
+                      'route' => ['hardware/bulkedit'],
+                      'class' => 'form-inline',
+                       'id' => 'bulkForm']) }}
+                    <div class="row">
+                        <div class="col-md-12">
+                            @if (Request::get('status')!='Deleted')
+                                <div id="toolbar">
+                                    <select name="bulk_actions" class="form-control select2">
+                                        <option value="edit">Edit</option>
+                                        <option value="delete">Delete</option>
+                                        <option value="labels">Generate Labels</option>
+                                    </select>
+                                    <button class="btn btn-default" id="bulkEdit" disabled>Go</button>
+                                </div>
+                            @endif
 
                                 <table
                                         data-columns="{{ \App\Presenters\AssetPresenter::dataTableLayout() }}"
@@ -22,14 +39,9 @@
                                         data-search="true"
                                         data-side-pagination="server"
                                         data-show-columns="true"
-                                        data-show-fullscreen="true"
                                         data-show-export="true"
                                         data-show-refresh="true"
                                         data-sort-order="asc"
-                                        data-toolbar="#assetsBulkEditToolbar"
-                                        data-bulk-button-id="#bulkAssetEditButton"
-                                        data-bulk-form-id="#assetsBulkForm"
-                                        data-click-to-select="true"
                                         id="assetsListingTable"
                                         class="table table-striped snipe-table"
                                         data-url="{{route('api.assets.index', ['status_id' => $statuslabel->id]) }}"

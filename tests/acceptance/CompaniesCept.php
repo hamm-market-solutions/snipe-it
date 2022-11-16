@@ -1,5 +1,4 @@
 <?php
-
 $I = new AcceptanceTester($scenario);
 AcceptanceTester::test_login($I);
 
@@ -8,7 +7,7 @@ $I->wantTo('ensure that the company listing page loads without errors');
 $I->lookForwardTo('seeing it load without errors');
 $I->amOnPage('/companies');
 $I->waitForElement('.table', 5); // secs
-$I->seeNumberOfElements('table[name="companies"] tr', [5, 30]);
+$I->seeNumberOfElements('table[name="companies"] tr', [5,30]);
 $I->seeInTitle('Companies');
 $I->see('Companies');
 $I->seeInPageSource('companies/create');

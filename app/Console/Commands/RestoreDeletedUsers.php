@@ -43,15 +43,16 @@ class RestoreDeletedUsers extends Command
      */
     public function handle()
     {
+
         $start_date = $this->option('start_date');
         $end_date = $this->option('end_date');
         $asset_totals = 0;
         $license_totals = 0;
         $user_count = 0;
 
-        if (($start_date == '') || ($end_date == '')) {
-            $this->info('ERROR: All fields are required.');
 
+        if (($start_date=='') || ($end_date=='')) {
+            $this->info('ERROR: All fields are required.');
             return false;
         }
 
@@ -62,15 +63,15 @@ class RestoreDeletedUsers extends Command
 
         foreach ($users as $user) {
             $user_count++;
-            $user_logs = Actionlog::where('target_id', $user->id)->where('target_type', User::class)
-                ->where('action_type', 'checkout')->with('item')->get();
+            $user_logs = Actionlog::where('target_id', $user->id)->where('target_type',User::class)
+                ->where('action_type','checkout')->with('item')->get();
 
-            $this->info($user_count.'. '.$user->username.' ('.$user->id.') was deleted at '.$user->deleted_at.' and has '.$user_logs->count().' checkouts associated.');
+            $this->info($user_count.'. '.$user->username.' ('.$user->id.') was deleted at '.$user->deleted_at. ' and has '.$user_logs->count().' checkouts associated.');
 
             foreach ($user_logs as $user_log) {
                 $this->info('  * '.$user_log->item_type.': '.$user_log->item->name.' - item_id: '.$user_log->item_id);
 
-                if ($user_log->item_type == Asset::class) {
+                if ($user_log->item_type==Asset::class) {
                     $asset_totals++;
 
                     DB::table('assets')
@@ -78,10 +79,11 @@ class RestoreDeletedUsers extends Command
                         ->update(['assigned_to' => $user->id, 'assigned_type'=> User::class]);
 
                     $this->info('      ** Asset '.$user_log->item->id.' ('.$user_log->item->asset_tag.') restored to user '.$user->id.'');
-                } elseif ($user_log->item_type == License::class) {
+
+                } elseif ($user_log->item_type==License::class) {
                     $license_totals++;
 
-                    $avail_seat = DB::table('license_seats')->where('license_id', '=', $user_log->item->id)
+                    $avail_seat = DB::table('license_seats')->where('license_id','=',$user_log->item->id)
                         ->whereNull('assigned_to')->whereNull('asset_id')->whereBetween('updated_at', [$start_date, $end_date])->first();
                     if ($avail_seat) {
                         $this->info('      ** Allocating seat '.$avail_seat->id.' for this License');
@@ -89,17 +91,27 @@ class RestoreDeletedUsers extends Command
                         DB::table('license_seats')
                             ->where('id', $avail_seat->id)
                             ->update(['assigned_to' => $user->id]);
+
                     } else {
                         $this->warn('ERROR: No available seats for '.$user_log->item->name);
                     }
+
                 }
+
             }
 
             $this->warn('Restoring user '.$user->username.'!');
             $user->restore();
+
+
         }
 
         $this->info($asset_totals.' assets affected');
         $this->info($license_totals.' licenses affected');
+
+
+
     }
+
+
 }
