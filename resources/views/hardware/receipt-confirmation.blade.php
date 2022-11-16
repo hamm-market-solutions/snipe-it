@@ -72,7 +72,7 @@
 </header>
 <br>
 <div style="margin: 100px 0;">
-    <h3>Bestätigung des Erhalts für Endgeräte</h3>
+    <h3 class="heading">Bestätigung des Erhalts für Endgeräte</h3>
     <br>
     <br>
     <br>
